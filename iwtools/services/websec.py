@@ -298,11 +298,11 @@ class Websec:
         logging.info(colored("Completed: ", attrs=['bold']) + test_time)
         logging.info(banner)
         logging.info(colored("Grade: ", attrs=['bold']) + colored(test_results['grade'], grade_color, attrs=['bold']))
-        logging.info(colored("PCI DSS Compliance Test: ", attrs=['bold'])  + colored(test_results['internals']['scores']['pci_dss']['description'], pci_dss_color))
-        logging.info(colored("EU GDPR Compliance Test: ", attrs=['bold'])  + colored(test_results['internals']['scores']['gdpr']['description'], eu_gdpr_color))
-        logging.info(colored("Content Security Policy Test: ", attrs=['bold'])  + colored(test_results['internals']['scores']['csp']['description'], csp_pol_color))
-        logging.info(colored("Software Security Test: ", attrs=['bold'])  + colored(test_results['internals']['scores']['app_scan']['description'], appscan_color))
-        logging.info(colored("Headers Security Test: ", attrs=['bold'])  + colored(test_results['internals']['scores']['http_headers']['description'], headers_color))
+        logging.info(colored("PCI DSS Compliance Test: ", attrs=['bold'])  + colored(test_results['internals']['scores']['pci_dss']['description'].title(), pci_dss_color))
+        logging.info(colored("EU GDPR Compliance Test: ", attrs=['bold'])  + colored(test_results['internals']['scores']['gdpr']['description'].title(), eu_gdpr_color))
+        logging.info(colored("Content Security Policy Test: ", attrs=['bold'])  + colored(test_results['internals']['scores']['csp']['description'].title(), csp_pol_color))
+        logging.info(colored("Software Security Test: ", attrs=['bold'])  + colored(test_results['internals']['scores']['app_scan']['description'].title(), appscan_color))
+        logging.info(colored("Headers Security Test: ", attrs=['bold'])  + colored(test_results['internals']['scores']['http_headers']['description'].title(), headers_color))
 
         if test_results['global_highlights']:
             logging.info(colored("\nNotes:", attrs=['bold']))

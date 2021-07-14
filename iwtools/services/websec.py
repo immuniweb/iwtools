@@ -290,7 +290,7 @@ class Websec:
 
         banner = self.generate_banner(grade, grade_color, pci_dss_color, eu_gdpr_color, csp_pol_color, appscan_color, headers_color)
 
-        test_time = strftime('%B %-d, %Y %H:%M:%S', localtime(test_results['ts']))
+        test_time = strftime('%B %d, %Y %H:%M:%S', localtime(test_results['ts']))
 
         logging.info(colored("Source URL: ", attrs=['bold']) + test_results['source_url'])
         logging.info(colored("Tested URL: ", attrs=['bold']) + test_results['tested_url'])

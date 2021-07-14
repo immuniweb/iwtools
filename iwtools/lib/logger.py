@@ -21,7 +21,6 @@ def init_logging(file_path, output_format):
     # Init logging
     logging.basicConfig(
         handlers=logging_handlers,
-        encoding='utf-8',
         level=logging.INFO,
         format='%(message)s'
     )

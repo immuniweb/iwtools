@@ -292,6 +292,11 @@ class Websec:
 
         test_time = strftime('%B %d, %Y %H:%M:%S', localtime(test_results['ts']))
 
+        # Test is outdated if older than 1 week
+        test_time_color = None
+        if int(time()) - test_results['ts'] > 604800:
+            test_time_color = 'yellow'
+
         logging.info(colored("Source URL: ", attrs=['bold']) + test_results['source_url'])
         logging.info(colored("Tested URL: ", attrs=['bold']) + test_results['tested_url'])
         logging.info(colored("Tested IP Address: ", attrs=['bold']) + test_results['server_ip'])

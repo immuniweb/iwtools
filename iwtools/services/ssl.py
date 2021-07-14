@@ -106,7 +106,8 @@ class Ssl:
         url = f"{self.API_URL}/get_result/{str(time())}.html"
 
         data = {
-            'job_id': job_id
+            'job_id': job_id,
+            'verbosity': 1
         }
 
         response = requests.post(url, data)
@@ -292,9 +293,14 @@ class Ssl:
 
         test_time = strftime('%B %d, %Y %H:%M:%S', localtime(test_results['internals']['ts']))
 
+        # Test is outdated if older than 1 week
+        test_time_color = None
+        if int(time()) - test_results['internals']['ts'] > 604800:
+            test_time_color = 'yellow'
+
         logging.info(colored("Tested Hostname: ", attrs=['bold']) + test_results['server_info']['unicode_hostname']['value'])
         logging.info(colored("Tested IP Address: ", attrs=['bold']) + test_results['server_info']['ip']['value'])
-        logging.info(colored("Completed: ", attrs=['bold']) + test_time)
+        logging.info(colored("Completed: ", attrs=['bold']) + colored(test_time, test_time_color))
         logging.info(banner)
         logging.info(colored("Grade: ", attrs=['bold']) + colored(test_results['results']['grade'], grade_color, attrs=['bold']))
         logging.info(colored("HIPAA Compliance Test: ", attrs=['bold'])  + colored(test_results['internals']['scores']['hipaa']['description'].title(), hipaa_color))
@@ -302,11 +308,19 @@ class Ssl:
         logging.info(colored("PCI DSS Compliance Test: ", attrs=['bold'])  + colored(test_results['internals']['scores']['pci_dss']['description'].title(), hipaa_color))
         logging.info(colored("Industry Best Practices: ", attrs=['bold'])  + colored(test_results['internals']['scores']['industry_best_practices']['description'].title(), nist_color))
 
-        if test_results['highlights']:
+        # Clean system highlights
+        highlights = []
+
+        for highlight in test_results['highlights']:
+            if highlight['highlight_id'] == 32:
+                continue
+            highlights.append(highlight)
+
+        if highlights:
             logging.info(colored("\nNotes:", attrs=['bold']))
 
         # Global Highlights
-        for highlight in test_results['highlights']:
+        for highlight in highlights:
             highlight = self.parse_highlight(highlight)
             logging.info(colored(f"[{highlight['title']}]", highlight['color']) + ' ' + highlight['text'])
 

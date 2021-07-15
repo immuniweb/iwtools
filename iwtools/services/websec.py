@@ -138,7 +138,7 @@ class Websec:
     async def watch(self, job_id):
         """Check test status until complete"""
 
-        if self.quiet:
+        if self.quiet or logging.root.level == logging.DEBUG:
             response = self.wait_test_results(job_id)
         else:
             loop = asyncio.get_event_loop()

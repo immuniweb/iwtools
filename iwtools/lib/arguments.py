@@ -32,7 +32,7 @@ def parse_args():
 
     api_key_group.add_argument("--api-keyfile",
         help=(
-            "Use file with api keys (more secure than raw argument).\n"
+            "Use file with API keys (more secure that passing as raw argument).\n"
             "Sample file content:\n"
             "websec ssl ABCDE-12345-FGHIJ-67890\n"
             "darkweb 12345-ABCDE-67890-FGHIJ\n\n"
@@ -71,13 +71,13 @@ def parse_args():
 
     argparser.add_argument("target",
         help=(
-            "Test target.\n"
-            "    URL For web security test\n"
-            "    Hostname:Port for SSL security test\n"
-            "    Domain for dark web security test\n"
-            "    File path for local mobile application test\n"
-            "    Page of mobile app in application stores for published mobile application test\n"
-            "    URL of mobile app for selfhosted mobile application test\n"
+            "Test's target.\n"
+            "    URL for Web Security test\n"
+            "    Hostname:Port for SSL Security test\n"
+            "    Domain for Dark Web Exposure test\n"
+            "    File path of a locally stored mobile application\n"
+            "    Page of a mobile app published in application stores\n"
+            "    URL of a self-hosted mobile application\n"
         ),
         metavar="TEST_TARGET",
         type=str

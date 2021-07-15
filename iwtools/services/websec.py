@@ -130,6 +130,7 @@ class Websec:
 
         while 'status' in response and response['status'] == 'in_progress':
             response = self.get_result_by_job_id(job_id)
+            sleep(10)
 
         return response
 

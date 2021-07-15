@@ -40,11 +40,6 @@ def parse_args():
         type=pathlib.Path
     )
 
-    argparser.add_argument("-q", "--quiet",
-        help="Print only the grade and found problems.",
-        action="store_true"
-    )
-
     argparser.add_argument("-r", "--recheck",
         help="Force to refresh the test (API key required).",
         action="store_true"

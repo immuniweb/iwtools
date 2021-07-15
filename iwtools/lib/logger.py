@@ -15,7 +15,7 @@ def init_logging(file_path, output_format):
         logging_handlers.append(logging.StreamHandler(sys.stdout))
 
     # Disable logging if raw results
-    if output_format == 'raw_json':
+    if output_format in ['raw_json', 'pretty_json']:
         logging.disable()
 
     # Init logging

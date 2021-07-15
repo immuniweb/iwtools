@@ -20,7 +20,7 @@ def init_logging(file_path, output_format):
 
     # Disable logging if raw results
     if output_format in ['raw_json', 'pretty_json']:
-        logging.disable()
+        logging.disable(level=CRITICAL)
 
     # Init logging
     logging.basicConfig(

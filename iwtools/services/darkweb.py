@@ -171,6 +171,9 @@ class Darkweb:
                 logging.error(colored('Error while HTTP request, aborting…', 'red'))
                 raise
 
+        if 'error' in response:
+            raise Exception(response['error'])
+
         self.test_results = response
 
         return response

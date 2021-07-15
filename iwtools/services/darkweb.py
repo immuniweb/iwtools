@@ -13,7 +13,6 @@ import requests
 
 # Local libraries
 from gui.loader import InfiniteLoader
-from gui.scores import scores
 
 
 class Darkweb:

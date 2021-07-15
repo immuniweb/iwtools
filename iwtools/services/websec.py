@@ -254,6 +254,14 @@ class Websec:
         return color
 
 
+    def normalize_text(self, text):
+        """Fix text special chars"""
+
+        text = text.replace('&#039;', "'")
+
+        return text
+
+
     def generate_banner(self, grade, grade_color, pci_dss_color, eu_gdpr_color, csp_pol_color, appscan_color, headers_color):
         """Generate beauty banner with test results"""
 
@@ -323,7 +331,7 @@ class Websec:
             if not type(highlight) is str:
                 continue
             highlight = self.parse_highlight(highlight)
-            logging.info(colored(f"[{highlight['title']}]", highlight['color']) + ' ' + highlight['text'])
+            logging.info(colored(f"[{highlight['title']}]", highlight['color']) + ' ' + self.normalize_text(highlight['text']))
 
 
         # Local Highlights
@@ -341,7 +349,7 @@ class Websec:
             logging.info(colored(f"\n{self.groups[group]} Notes:", attrs=['bold']))
 
             for highlight in local_highlights[group]:
-                logging.info(colored(f"[{highlight['title']}]", highlight['color']) + f" {highlight['text']}")
+                logging.info(colored(f"[{highlight['title']}]", highlight['color']) + ' ' + normalize_text(highlight['text']))
 
         # Full Results
         logging.info(colored("\nCheck Details: ", attrs=['bold'])  + colored(f"https://www.immuniweb.com/websec/{test_results['unicode_hostname']}/{test_results['short_id']}/", 'blue'))

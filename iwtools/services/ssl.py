@@ -249,6 +249,14 @@ class Ssl:
         return color
 
 
+    def normalize_text(self, text):
+        """Fix text special chars"""
+
+        text = text.replace('&#039;', "'")
+
+        return text
+
+
     def generate_banner(self, grade, grade_color, hipaa_color, nist_color, pci_dss_color, ibp_color):
         """Generate beauty banner with test results"""
 
@@ -321,7 +329,7 @@ class Ssl:
         # Global Highlights
         for highlight in highlights:
             highlight = self.parse_highlight(highlight)
-            logging.info(colored(f"[{highlight['title']}]", highlight['color']) + ' ' + highlight['text'])
+            logging.info(colored(f"[{highlight['title']}]", highlight['color']) + ' ' + self.normalize_text(highlight['text']))
 
         # Full Results
         logging.info(colored("\nCheck Details: ", attrs=['bold']) + colored(f"https://www.immuniweb.com/ssl/{test_results['server_info']['unicode_hostname']['value']}/{test_results['internals']['short_id']}/", 'blue'))

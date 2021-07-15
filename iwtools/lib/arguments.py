@@ -73,6 +73,7 @@ def parse_args():
             "Test target.\n"
             "    URL For web security test\n"
             "    Hostname:Port for SSL security test\n"
+            "    Domain for dark web security test\n"
             "    File path for local mobile application test\n"
             "    Page of mobile app in application stores for published mobile application test\n"
             "    URL of mobile app for selfhosted mobile application test\n"
@@ -86,14 +87,14 @@ def parse_args():
     if args.recheck and (args.api_key is None and args.api_keyfile is None):
         argparser.error("Please pass your API key to refresh the test.")
 
-    if args.type == 'ssl' and not re.match('^[\w.]+:\d+$', args.target):
+    if args.type == 'ssl' and not re.match('^[\w-]+\.[\w-]+((\.[\w-]+)+)?:\d+$', args.target):
         argparser.error('Target format should be "hostname:port" for SSL security test.')
+
+    if args.type == 'darkweb' and not re.match('^[\w-]+\.[\w-]+((\.[\w-]+)+)?$', args.target):
+        argparser.error('Target format should be domain for dark web exposure test.')
 
     if args.type == 'websec' and not '.' not in args.target:
         argparser.error('Target format should be URL for web security test.')
-
-    if args.type == 'darkweb' and '.' not in args.target:
-        argparser.error('Target format should be URL for dark web exposure test.')
 
     if args.type == 'mobile' and '.' not in args.target:
         argparser.error('Target format should be URL or local path for mobile app security test.')

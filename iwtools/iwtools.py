@@ -20,7 +20,7 @@ from lib.keys import get_api_key
 # Community services
 from services.ssl import Ssl
 from services.websec import Websec
-# from services.mobile import Mobile
+from services.mobile import Mobile
 from services.darkweb import Darkweb
 
 # Debug libraries

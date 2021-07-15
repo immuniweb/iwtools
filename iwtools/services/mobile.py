@@ -54,6 +54,7 @@ class Mobile:
             data['app'] = self.target
         else:
             files = {'upload_file': open(self.target,'rb')}
+            url = f"{self.API_URL}/upload"
 
         response = requests.post(url, data=data, files=files)
         response.raise_for_status()

@@ -3,6 +3,7 @@
 # Standard libraries
 import logging
 import sys
+import os
 
 
 def init_logging(file_path, output_format):
@@ -14,6 +15,9 @@ def init_logging(file_path, output_format):
     else:
         logging_handlers.append(logging.StreamHandler(sys.stdout))
 
+    # Log level from enviroment
+    LOGLEVEL = os.environ.get('LOGLEVEL', 'INFO').upper()
+
     # Disable logging if raw results
     if output_format in ['raw_json', 'pretty_json']:
         logging.disable()
@@ -21,6 +25,6 @@ def init_logging(file_path, output_format):
     # Init logging
     logging.basicConfig(
         handlers=logging_handlers,
-        level=logging.INFO,
+        level=LOGLEVEL,
         format='%(message)s'
     )

@@ -27,15 +27,6 @@ from services.websec import Websec
 from pprint import pprint
 
 
-# Global vars
-services = {
-    'websec': Websec,
-    # 'mobile': Mobile,
-    # 'darkweb': Darkweb,
-    'ssl': Ssl,
-}
-
-
 # Let's start
 def main():
     # Parse arguments
@@ -57,14 +48,36 @@ def main():
 
 
     # Create test
-    service = services[args.type]
-    test = service(
-        target = args.target,
-        ip = args.ip,
-        recheck = args.recheck,
-        api_key = api_key,
-        quiet = args.format != 'colorized_text',
-    )
+    if args.type == 'websec':
+        test = Websec(
+            target = args.target,
+            ip = args.ip,
+            recheck = args.recheck,
+            api_key = api_key,
+            quiet = args.format != 'colorized_text',
+        )
+    elif args.type == 'ssl':
+        test = Ssl(
+            target = args.target,
+            ip = args.ip,
+            recheck = args.recheck,
+            api_key = api_key,
+            quiet = args.format != 'colorized_text',
+        )
+    elif args.type == 'darkweb':
+        test = Ssl(
+            target = args.target,
+            recheck = args.recheck,
+            api_key = api_key,
+            quiet = args.format != 'colorized_text',
+        )
+    elif args.type == 'mobile':
+        test = Mobile(
+            target = args.target,
+            recheck = args.recheck,
+            api_key = api_key,
+            quiet = args.format != 'colorized_text',
+        )
 
 
     # Run test

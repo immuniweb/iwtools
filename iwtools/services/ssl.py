@@ -278,10 +278,13 @@ class Ssl:
         grade = test_results['results']['grade'].lower()
         grade_color = self.get_grade_color(grade)
 
-        hipaa_color = self.normalize_color(test_results['internals']['scores']['hipaa']['class'])
-        nist_color = self.normalize_color(test_results['internals']['scores']['nist']['class'])
-        pci_dss_color = self.normalize_color(test_results['internals']['scores']['pci_dss']['class'])
-        ibp_color = self.normalize_color(test_results['internals']['scores']['industry_best_practices']['class'])
+        if grade != 'n':
+            hipaa_color = self.normalize_color(test_results['internals']['scores']['hipaa']['class'])
+            nist_color = self.normalize_color(test_results['internals']['scores']['nist']['class'])
+            pci_dss_color = self.normalize_color(test_results['internals']['scores']['pci_dss']['class'])
+            ibp_color = self.normalize_color(test_results['internals']['scores']['industry_best_practices']['class'])
+        else:
+            hipaa_color = nist_color = pci_dss_color = ibp_color = grade_color
 
         banner = self.generate_banner(grade, grade_color, hipaa_color, nist_color, pci_dss_color, ibp_color)
 
@@ -297,10 +300,12 @@ class Ssl:
         logging.info(colored("Completed: ", attrs=['bold']) + colored(test_time, test_time_color))
         logging.info(banner)
         logging.info(colored("Grade: ", attrs=['bold']) + colored(test_results['results']['grade'], grade_color, attrs=['bold']))
-        logging.info(colored("HIPAA Compliance Test: ", attrs=['bold'])  + colored(test_results['internals']['scores']['hipaa']['description'].title(), hipaa_color))
-        logging.info(colored("NIST Compliance Test: ", attrs=['bold'])  + colored(test_results['internals']['scores']['nist']['description'].title(), hipaa_color))
-        logging.info(colored("PCI DSS Compliance Test: ", attrs=['bold'])  + colored(test_results['internals']['scores']['pci_dss']['description'].title(), hipaa_color))
-        logging.info(colored("Industry Best Practices: ", attrs=['bold'])  + colored(test_results['internals']['scores']['industry_best_practices']['description'].title(), nist_color))
+
+        if grade != 'n':
+            logging.info(colored("HIPAA Compliance Test: ", attrs=['bold'])  + colored(test_results['internals']['scores']['hipaa']['description'].title(), hipaa_color))
+            logging.info(colored("NIST Compliance Test: ", attrs=['bold'])  + colored(test_results['internals']['scores']['nist']['description'].title(), hipaa_color))
+            logging.info(colored("PCI DSS Compliance Test: ", attrs=['bold'])  + colored(test_results['internals']['scores']['pci_dss']['description'].title(), hipaa_color))
+            logging.info(colored("Industry Best Practices: ", attrs=['bold'])  + colored(test_results['internals']['scores']['industry_best_practices']['description'].title(), nist_color))
 
         # Clean system highlights
         highlights = []

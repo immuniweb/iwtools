@@ -283,11 +283,14 @@ class Websec:
         grade = test_results['grade'].lower()
         grade_color = self.get_grade_color(grade)
 
-        pci_dss_color = self.normalize_color(test_results['internals']['scores']['pci_dss']['class'])
-        eu_gdpr_color = self.normalize_color(test_results['internals']['scores']['gdpr']['class'])
-        csp_pol_color = self.normalize_color(test_results['internals']['scores']['csp']['class'])
-        appscan_color = self.normalize_color(test_results['internals']['scores']['app_scan']['class'])
-        headers_color = self.normalize_color(test_results['internals']['scores']['http_headers']['class'])
+        if grade != 'n':
+            pci_dss_color = self.normalize_color(test_results['internals']['scores']['pci_dss']['class'])
+            eu_gdpr_color = self.normalize_color(test_results['internals']['scores']['gdpr']['class'])
+            csp_pol_color = self.normalize_color(test_results['internals']['scores']['csp']['class'])
+            appscan_color = self.normalize_color(test_results['internals']['scores']['app_scan']['class'])
+            headers_color = self.normalize_color(test_results['internals']['scores']['http_headers']['class'])
+        else:
+            pci_dss_color = eu_gdpr_color = csp_pol_color = appscan_color = headers_color = grade_color
 
         banner = self.generate_banner(grade, grade_color, pci_dss_color, eu_gdpr_color, csp_pol_color, appscan_color, headers_color)
 

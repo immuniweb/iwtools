@@ -151,7 +151,7 @@ class Ssl:
         """Check test status until complete"""
 
         if self.quiet:
-            self.wait_test_results(job_id)
+            response = self.wait_test_results(job_id)
         else:
             loop = asyncio.get_event_loop()
             loader = asyncio.ensure_future(self.test_loader('SSL Security Test in progress', 'Test completed'))

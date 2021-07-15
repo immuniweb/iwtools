@@ -47,6 +47,12 @@ class Ssl:
         'No Encryption'
     ]
 
+    highlight_order = {
+        'blue': 0,
+        'green': 1,
+        'yellow': 2
+    }
+
     test_results = None
 
 
@@ -336,8 +342,12 @@ class Ssl:
             logging.info(colored("\nNotes:", attrs=['bold']))
 
         # Global Highlights
+        for index, data in enumerate(highlights):
+            highlights[index] = self.parse_highlight(highlights[index])
+
+        highlights.sort(key=lambda highlight: self.highlight_order[highlight['color']])
+
         for highlight in highlights:
-            highlight = self.parse_highlight(highlight)
             logging.info(colored(f"[{highlight['title']}]", highlight['color']) + ' ' + self.normalize_text(highlight['text']))
 
         # Full Results

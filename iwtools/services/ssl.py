@@ -30,13 +30,6 @@ class Ssl:
     API_URL = 'https://www.immuniweb.com/ssl/api/v1'
     USER_AGENT = 'iwtools-0.1'
 
-    # Check groups names
-    # groups = {
-    #     'http_headers': 'HTTP Headers Security',
-    #     'http_cookies': 'Cookies Security',
-    #     'app_scan': 'Software Security',
-    # }
-
     highlight_titles = [
         'Empty',
         'Good configuration',

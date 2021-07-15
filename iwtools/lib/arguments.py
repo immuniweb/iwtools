@@ -14,7 +14,7 @@ def parse_args():
             "    websec — Website Security Test\n"
             "    mobile — Mobile App Security Test\n"
             "    darkweb — Dark Web Exposure Test\n"
-            "    ssl — SSL Security Test\n"
+            "    ssl — SSL Security Test\n\n"
         ),
         type=str,
         metavar="TEST_TYPE",
@@ -30,7 +30,12 @@ def parse_args():
     )
 
     api_key_group.add_argument("--api-keyfile",
-        help="Use file with api keys (more secure than raw argument).",
+        help=(
+            "Use file with api keys (more secure than raw argument).\n"
+            "Sample file content:\n"
+            "websec ssl ABCDE-12345-FGHIJ-67890\n"
+            "darkweb 12345-ABCDE-67890-FGHIJ\n\n"
+        ),
         type=pathlib.Path
     )
 

@@ -99,7 +99,7 @@ def parse_args():
     if args.type == 'darkweb' and not re.match('^[\w-]+\.[\w-]+((\.[\w-]+)+)?$', args.target):
         argparser.error('Target format should be domain for dark web exposure test.')
 
-    if args.type == 'websec' and not '.' not in args.target:
+    if args.type == 'websec' and '.' not in args.target:
         argparser.error('Target format should be URL for web security test.')
 
     if args.type == 'mobile' and '.' not in args.target:

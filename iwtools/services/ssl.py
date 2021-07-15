@@ -257,6 +257,11 @@ class Ssl:
 
         text = text.replace('&#039;', "'")
 
+        # HOTFIX: Remove HTML from notification
+        # TODO: Return clean notification or strip all html
+        text = text.replace('&lt;b&gt;&lt;a onclick=&quot;return false&quot; href=&quot;#&quot; class=&quot;jumpto_email&quot;&gt;', '')
+        text = text.replace('&lt;/a&gt;&lt;/b&gt;', '')
+
         return text
 
 

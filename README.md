@@ -90,7 +90,7 @@ Mail Server check:
 - SSL Certificate Test
 - PCI DSS, HIPAA & NIST Test
 
-Commandline options: [Wiki](https://github.com/immuniweb/iwtools/wiki/)  
+Command line options: [Wiki](https://github.com/immuniweb/iwtools/wiki/)  
 Read more: [ImmuniWeb® Community Edition](https://www.immuniweb.com/free/)
 
 This software is provided "as is" without any warranty of any kind.

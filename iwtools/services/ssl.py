@@ -304,7 +304,7 @@ class Ssl:
             test_time_color = 'yellow'
 
         logging.info(colored("Tested Hostname: ", attrs=['bold']) + test_results['server_info']['unicode_hostname']['value'])
-        logging.info(colored("Tested Port: ", attrs=['bold']) + test_results['server_info']['port']['value'])
+        logging.info(colored("Tested Port: ", attrs=['bold']) + str(test_results['server_info']['port']['value']))
         logging.info(colored("Tested IP Address: ", attrs=['bold']) + test_results['server_info']['ip']['value'])
         logging.info(colored("Completed: ", attrs=['bold']) + colored(test_time, test_time_color))
         logging.info(banner)

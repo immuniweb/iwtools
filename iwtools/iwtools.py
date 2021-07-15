@@ -21,7 +21,7 @@ from lib.keys import get_api_key
 from services.ssl import Ssl
 from services.websec import Websec
 # from services.mobile import Mobile
-# from services.darkweb import Darkweb
+from services.darkweb import Darkweb
 
 # Debug libraries
 from pprint import pprint
@@ -65,7 +65,7 @@ def main():
             quiet = args.format != 'colorized_text',
         )
     elif args.type == 'darkweb':
-        test = Ssl(
+        test = Darkweb(
             target = args.target,
             recheck = args.recheck,
             api_key = api_key,

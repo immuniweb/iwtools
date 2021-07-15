@@ -1,9 +1,20 @@
 #! /usr/bin/env python3
 
 # Standard libraries
+from ipaddress import ip_address
 import argparse
 import pathlib
 import re
+
+
+def is_ip(string):
+    """Check is string is IP address"""
+
+    try:
+        ip_address(string)
+        return True
+    except:
+        return False
 
 
 def parse_args():
@@ -91,7 +102,7 @@ def parse_args():
     if args.type == 'ssl' and not re.match('^[\w-]+\.[\w-]+((\.[\w-]+)+)?:\d+$', args.target):
         argparser.error('Target format should be "hostname:port" for SSL security test.')
 
-    if args.type == 'darkweb' and not re.match('^[\w-]+\.[\w-]+((\.[\w-]+)+)?$', args.target):
+    if args.type == 'darkweb' and (is_ip(args.target) or not re.match('^[\w-]+\.[\w-]+((\.[\w-]+)+)?$', args.target)):
         argparser.error('Target format should be domain for dark web exposure test.')
 
     if args.type == 'websec' and '.' not in args.target:
@@ -99,5 +110,8 @@ def parse_args():
 
     if args.type == 'mobile' and '.' not in args.target:
         argparser.error('Target format should be URL or local path for mobile app security test.')
+
+    if not is_ip(args.ip):
+        argparser.error('An invalid IP address was specified.')
 
     return args

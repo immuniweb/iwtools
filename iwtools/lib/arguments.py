@@ -111,7 +111,7 @@ def parse_args():
     if args.type == 'mobile' and '.' not in args.target:
         argparser.error('Target format should be URL or local path for mobile app security test.')
 
-    if args.ip and not (is_ip(args.ip) or args.ip == 'any'):
+    if not args.ip == 'any' and not is_ip(args.ip):
         argparser.error('An invalid IP address was specified.')
 
     return args

@@ -236,4 +236,4 @@ class Darkweb:
         logging.info(colored("Fake Accounts in Social Media: ", attrs=['bold'])  + colored(test_results['internals']['scores']['social_networks']['description'].title(), fake_accounts_color))
 
         # Full Results
-        logging.info(colored("\nCheck Details: ", attrs=['bold'])  + colored(f"https://www.immuniweb.com/websec/{test_results['unicode_orig_url']}/{test_results['internals']['id']}/", 'blue'))
+        logging.info(colored("\nCheck Details: ", attrs=['bold'])  + colored(f"https://www.immuniweb.com/darkweb/{test_results['unicode_orig_url']}/{test_results['internals']['id']}/", 'blue'))

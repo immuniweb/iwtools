@@ -337,7 +337,7 @@ class Websec:
             if not type(highlight) is str:
                 continue
             highlight = self.parse_highlight(highlight)
-            logging.info(colored(f"[{highlight['title']}]", highlight['color']) + ' ' + self.normalize_text(highlight['text']))
+            logging.info(colored(f"[{highlight['title']}]", highlight['color'], attrs=['bold']) + ' ' + self.normalize_text(highlight['text']))
 
 
         # Local Highlights

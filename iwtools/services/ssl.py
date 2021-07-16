@@ -348,7 +348,7 @@ class Ssl:
         highlights.sort(key=lambda highlight: self.highlight_order[highlight['color']])
 
         for highlight in highlights:
-            logging.info(colored(f"[{highlight['title']}]", highlight['color']) + ' ' + self.normalize_text(highlight['text']))
+            logging.info(colored(f"[{highlight['title']}]", highlight['color'], attrs=['bold']) + ' ' + self.normalize_text(highlight['text']))
 
         # Full Results
         logging.info(colored("\nCheck Details: ", attrs=['bold']) + colored(f"https://www.immuniweb.com/ssl/{test_results['server_info']['unicode_hostname']['value']}/{test_results['internals']['short_id']}/", 'blue'))

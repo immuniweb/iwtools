@@ -355,7 +355,7 @@ class Websec:
             logging.info(colored(f"\n{self.groups[group]} Notes:", attrs=['bold']))
 
             for highlight in local_highlights[group]:
-                logging.info(colored(f"[{highlight['title']}]", highlight['color']) + ' ' + self.normalize_text(highlight['text']))
+                logging.info(colored(f"[{highlight['title']}]", highlight['color'], attrs=['bold']) + ' ' + self.normalize_text(highlight['text']))
 
         # Full Results
         logging.info(colored("\nCheck Details: ", attrs=['bold'])  + colored(f"https://www.immuniweb.com/websec/{test_results['unicode_hostname']}/{test_results['short_id']}/", 'blue'))

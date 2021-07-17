@@ -28,14 +28,15 @@ class Darkweb:
     API_URL = 'https://www.immuniweb.com/darkweb/api/v1'
     USER_AGENT = 'iwtools-0.1'
 
-    test_results = None
-
 
     def __init__(self, target, api_key=None, recheck=False, quiet=False):
         self.target = target
         self.api_key = api_key
         self.recheck = recheck
         self.quiet = quiet
+        self.test_results = None
+        self.session = requests.Session()
+        self.session.headers.update({'User-Agent': self.USER_AGENT})
 
 
     def get_cache_id_or_start_test(self):
@@ -51,7 +52,7 @@ class Darkweb:
             'dnsr': 'on'
         }
 
-        response = requests.post(url, data)
+        response = self.session.post(url, data)
         response.raise_for_status()
 
         return response.json()
@@ -66,7 +67,7 @@ class Darkweb:
             'id': test_id
         }
 
-        response = requests.post(url, data)
+        response = self.session.post(url, data)
         response.raise_for_status()
 
         return response.json()
@@ -81,7 +82,7 @@ class Darkweb:
             'job_id': job_id
         }
 
-        response = requests.post(url, data)
+        response = self.session.post(url, data)
         response.raise_for_status()
 
         return response.json()

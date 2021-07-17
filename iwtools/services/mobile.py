@@ -29,14 +29,15 @@ class Mobile:
     API_URL = 'https://www.immuniweb.com/mobile/api'
     USER_AGENT = 'iwtools-0.1'
 
-    test_results = None
-
 
     def __init__(self, target, api_key=None, recheck=False, quiet=False):
         self.target = target
         self.api_key = api_key
         self.recheck = recheck
         self.quiet = quiet
+        self.test_results = None
+        self.session = requests.Session()
+        self.session.headers.update({'User-Agent': self.USER_AGENT})
 
 
     def get_cache_id_or_start_test(self):
@@ -56,7 +57,7 @@ class Mobile:
             files = {'file': open(self.target,'rb')}
             url = f"{self.API_URL}/upload"
 
-        response = requests.post(url, data=data, files=files)
+        response = self.session.post(url, data=data, files=files)
         response.raise_for_status()
 
         logging.debug(response.text)
@@ -69,7 +70,7 @@ class Mobile:
 
         url = f"{self.API_URL}/test_info/id/{test_id}"
 
-        response = requests.get(url)
+        response = self.session.get(url)
         response.raise_for_status()
 
         logging.debug(response.text)
@@ -87,7 +88,7 @@ class Mobile:
             'verbosity': 1
         }
 
-        response = requests.post(url, data)
+        response = self.session.post(url, data)
         response.raise_for_status()
 
         logging.debug(response.text)

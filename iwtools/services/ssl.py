@@ -53,8 +53,6 @@ class Ssl:
         'yellow': 2
     }
 
-    test_results = None
-
 
     def __init__(self, target, ip='any', api_key=None, recheck=False, quiet=False):
         self.target = target
@@ -62,6 +60,9 @@ class Ssl:
         self.api_key = api_key
         self.recheck = recheck
         self.quiet = quiet
+        self.test_results = None
+        self.session = requests.Session()
+        self.session.headers.update({'User-Agent': self.USER_AGENT})
 
 
     def get_cache_id_or_start_test(self):
@@ -77,7 +78,7 @@ class Ssl:
             'show_test_results': 'false'
         }
 
-        response = requests.post(url, data)
+        response = self.session.post(url, data)
         response.raise_for_status()
 
         return response.json()
@@ -93,7 +94,7 @@ class Ssl:
             'verbosity': 1
         }
 
-        response = requests.post(url, data)
+        response = self.session.post(url, data)
         response.raise_for_status()
 
         return response.json()
@@ -109,7 +110,7 @@ class Ssl:
             'verbosity': 1
         }
 
-        response = requests.post(url, data)
+        response = self.session.post(url, data)
         response.raise_for_status()
 
         return response.json()

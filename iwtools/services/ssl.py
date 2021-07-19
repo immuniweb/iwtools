@@ -62,7 +62,9 @@ class Ssl:
         self.quiet = quiet
         self.test_results = None
         self.session = requests.Session()
-        self.session.headers.update({'User-Agent': self.USER_AGENT})
+        self.session.headers.update({
+            'User-Agent': self.USER_AGENT
+        })
 
 
     def get_cache_id_or_start_test(self):
@@ -272,11 +274,25 @@ class Ssl:
         return text
 
 
-    def generate_banner(self, grade, grade_color, hipaa_color, nist_color, pci_dss_color, ibp_color):
+    def generate_banner(self, grade, grade_color, hipaa_color, nist_color, pci_dss_color, ibp_color, skip_compliances=False):
         """Generate beauty banner with test results"""
 
         # Grade letter icon
         score = scores[grade]
+
+        if skip_compliances:
+            return (
+                "\n"
+                f"{colored('╭───────────────────╮', grade_color)}\n"
+                f"{colored('│   '+ score[0] +'  │', grade_color)}\n"
+                f"{colored('│   '+ score[1] +'  │', grade_color)}\n"
+                f"{colored('│   '+ score[2] +'  │', grade_color)}\n"
+                f"{colored('│   '+ score[3] +'  │', grade_color)}\n"
+                f"{colored('│   '+ score[4] +'  │', grade_color)}\n"
+                f"{colored('│   '+ score[5] +'  │', grade_color)}\n"
+                f"{colored('│                   │', grade_color)}\n"
+                f"{colored('╰───────────────────╯', grade_color)}\n"
+            )
 
         return (
             "\n"
@@ -301,15 +317,15 @@ class Ssl:
         grade = test_results['results']['grade'].lower()
         grade_color = self.get_grade_color(grade)
 
-        if grade != 'n':
-            hipaa_color = self.normalize_color(test_results['internals']['scores']['hipaa']['class'])
-            nist_color = self.normalize_color(test_results['internals']['scores']['nist']['class'])
-            pci_dss_color = self.normalize_color(test_results['internals']['scores']['pci_dss']['class'])
-            ibp_color = self.normalize_color(test_results['internals']['scores']['industry_best_practices']['class'])
-        else:
-            hipaa_color = nist_color = pci_dss_color = ibp_color = grade_color
+        hipaa_color = self.normalize_color(test_results['internals']['scores']['hipaa']['class'])
+        nist_color = self.normalize_color(test_results['internals']['scores']['nist']['class'])
+        pci_dss_color = self.normalize_color(test_results['internals']['scores']['pci_dss']['class'])
+        ibp_color = self.normalize_color(test_results['internals']['scores']['industry_best_practices']['class'])
 
-        banner = self.generate_banner(grade, grade_color, hipaa_color, nist_color, pci_dss_color, ibp_color)
+        # Check is compliances test was skipped
+        skip_compliances = False
+        if grade == 'n' or (hipaa_color == nist_color == pci_dss_color == ibp_color == ''):
+            skip_compliances = True
 
         test_time = strftime('%B %d, %Y %H:%M:%S', localtime(test_results['internals']['ts']))
 
@@ -322,10 +338,12 @@ class Ssl:
         logging.info(colored("Tested Port: ", attrs=['bold']) + str(test_results['server_info']['port']['value']))
         logging.info(colored("Tested IP Address: ", attrs=['bold']) + test_results['server_info']['ip']['value'])
         logging.info(colored("Completed: ", attrs=['bold']) + colored(test_time, test_time_color))
-        logging.info(banner)
+
+        logging.info(self.generate_banner(grade, grade_color, hipaa_color, nist_color, pci_dss_color, ibp_color, skip_compliances=skip_compliances))
+
         logging.info(colored("Grade: ", attrs=['bold']) + colored(test_results['results']['grade'], grade_color, attrs=['bold']))
 
-        if grade != 'n':
+        if grade != 'n' and not skip_compliances:
             logging.info(colored("HIPAA Compliance Test: ", attrs=['bold'])  + colored(test_results['internals']['scores']['hipaa']['description'].title(), hipaa_color))
             logging.info(colored("NIST Compliance Test: ", attrs=['bold'])  + colored(test_results['internals']['scores']['nist']['description'].title(), hipaa_color))
             logging.info(colored("PCI DSS Compliance Test: ", attrs=['bold'])  + colored(test_results['internals']['scores']['pci_dss']['description'].title(), hipaa_color))

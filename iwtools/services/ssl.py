@@ -63,7 +63,8 @@ class Ssl:
         self.test_results = None
         self.session = requests.Session()
         self.session.headers.update({
-            'User-Agent': self.USER_AGENT
+            'User-Agent': self.USER_AGENT,
+            'Connection':'close'
         })
 
 

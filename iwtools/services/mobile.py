@@ -37,7 +37,10 @@ class Mobile:
         self.quiet = quiet
         self.test_results = None
         self.session = requests.Session()
-        self.session.headers.update({'User-Agent': self.USER_AGENT})
+        self.session.headers.update({
+            'User-Agent': self.USER_AGENT,
+            'Connection':'close'
+        })
 
 
     def get_cache_id_or_start_test(self):

@@ -206,6 +206,9 @@ class Mobile:
     def normalize_color(self, color):
         """Adapt color names to console palette"""
 
+        if not color:
+            return "blue"
+
         if color == "orange":
             return "yellow"
 

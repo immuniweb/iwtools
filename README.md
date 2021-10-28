@@ -6,6 +6,18 @@
 
 Simple CLI interface to leverage [ImmuniWeb® Community Edition](https://www.immuniweb.com/free/) free tools in CI/CD pipelines and DevOps.
 
+## Prepare
+
+Create virtual enviroment and install dependencies. Python >= 3.6 required.
+
+```sh
+git clone https://github.com/immuniweb/iwtools.git
+cd iwtools/iwtools
+python3 -m venv env
+source ./env/bin/activate
+pip install -r requirements.txt
+```
+
 ## Usage
 
 ### Website Security Test
@@ -36,7 +48,7 @@ Local mobile app check:
 Remote mobile app check:
 
 ```sh
-./iwtools.py mobile https://ovel.space/download/myapp.apk
+./iwtools.py mobile https://example.com/download/myapp.apk
 ```
 
 Published mobile app check:

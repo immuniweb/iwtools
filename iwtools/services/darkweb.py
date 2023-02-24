@@ -4,15 +4,13 @@
 from time import time, strftime, localtime, sleep
 import logging
 import asyncio
-import sys
-import re
 
 # Third-party libraries
-from termcolor import colored
 import requests
 
 # Local libraries
 from gui.loader import InfiniteLoader
+from gui.termcolor import colored
 
 
 class Darkweb:

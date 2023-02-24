@@ -8,13 +8,12 @@ import sys
 import re
 
 # Third-party libraries
-from termcolor import colored
 import requests
 
 # Local libraries
 from gui.loader import InfiniteLoader
 from gui.scores import scores
-
+from gui.termcolor import colored
 
 class Websec:
     """
@@ -27,7 +26,7 @@ class Websec:
     """
 
     API_URL = 'https://www.immuniweb.com/websec/api/v1'
-    USER_AGENT = 'iwtools-0.1'
+    USER_AGENT = 'iwtools-0.2'
 
     # Check groups names
     groups = {
@@ -169,7 +168,8 @@ class Websec:
         response = self.get_cache_id_or_start_test()
 
         if 'error' in response:
-            raise Exception(response['error'])
+            recomendation = ' Recommendation: ' + response['recommendation'] if 'recommendation' in response else ''
+            raise Exception(response['error'] + recomendation)
 
         if 'multiple_ips' in response:
             raise Exception('Passed IP was not resolved')
@@ -189,7 +189,8 @@ class Websec:
                 raise
 
         if 'error' in response:
-            raise Exception(response['error'])
+            recomendation = ' Recommendation: ' + response['recommendation'] if 'recommendation' in response else ''
+            raise Exception(response['error'] + recomendation)
 
         self.test_results = response
 
@@ -362,4 +363,7 @@ class Websec:
                 logging.info(colored(f"[{highlight['title']}]", highlight['color'], attrs=['bold']) + ' ' + self.normalize_text(highlight['text']))
 
         # Full Results
-        logging.info(colored("\nCheck Details: ", attrs=['bold'])  + colored(f"https://www.immuniweb.com/websec/{test_results['unicode_hostname']}/{test_results['short_id']}/", 'blue'))
+        logging.info(colored("\nCheck Details: ", attrs=['bold']) + colored(self.get_test_link(test_results), 'blue'))
+
+    def get_test_link(self, test_results):
+        return f"https://www.immuniweb.com/websec/{test_results['unicode_hostname']}/{test_results['short_id']}/"

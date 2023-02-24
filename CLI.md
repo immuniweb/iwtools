@@ -1,7 +1,7 @@
 # iwtools commandline options
 
 ```
-usage: iwtools.py [-h] [--api-key API_KEY] [--api-keyfile API_KEYFILE] [-q] [-r] [-i IP] [-o OUTPUT] [-f FORMAT]
+usage: iwtools.py [-h] [--api-key API_KEY] [--api-keyfile API_KEYFILE] [-q] [-r] [-p] [-i IP] [-o OUTPUT] [-f FORMAT]
                   TEST_TYPE TEST_TARGET
 ```
 
@@ -13,6 +13,9 @@ Use a file with your API keys (it’s more secure than using raw arguments). [Fi
 
 ### -r / --recheck
 Force to refresh the test (API key required).
+
+### -p / --pipeline
+Compare test result with config (websec and ssl only).
 
 ### -i / --ip IP
 Force to use a specific IP address of the test's target.

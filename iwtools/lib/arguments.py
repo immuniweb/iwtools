@@ -62,6 +62,12 @@ def parse_args():
         default="any"
     )
 
+    argparser.add_argument("-p", "--pipeline",
+        help="Compare test result with config (websec and ssl only).",
+        action="store_true",
+        default=False
+    )
+
     argparser.add_argument("-o", "--output",
         help="Path to the output file.",
         type=pathlib.Path
@@ -94,7 +100,15 @@ def parse_args():
         type=str
     )
 
+    argparser.add_argument("-cfg", "--config-file",
+        help=(
+           "Use config file. json or yaml."
+        ),
+        type=pathlib.Path
+    )
+
     args = argparser.parse_args()
+    # If something wrong exception SystemExit and exit with code 2
 
     if args.recheck and (args.api_key is None and args.api_keyfile is None):
         argparser.error("Please pass your API key to refresh the test.")

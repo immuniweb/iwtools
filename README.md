@@ -11,12 +11,14 @@ Simple CLI interface to leverage [ImmuniWeb® Community Edition](https://www.imm
 Create virtual enviroment and install dependencies. Python >= 3.7 required.
 
 ```sh
-git clone https://github.com/immuniweb/iwtools.git
+git clone https://github.com/ImmuniwebSA/iwtools.git
 cd iwtools/iwtools
 python3 -m venv env
 source ./env/bin/activate
 pip install -r requirements.txt
 ```
+
+Instead of preparing and configuring the environment yourself, you can use our [Docker Image](https://hub.docker.com/r/immuniweb/iwtools).
 
 ## Usage
 
@@ -131,7 +133,7 @@ The script's Exit Code can return one of these 4 status codes:
 - 2 - an error occured in the input data.
 - 3 - at least one of the checks has failed.
 
-Command line options: [Wiki](https://github.com/immuniweb/iwtools/wiki/)  
+Command line options: [Wiki](https://github.com/ImmuniwebSA/iwtools/blob/main/CLI.md)  
 Read more: [ImmuniWeb® Community Edition](https://www.immuniweb.com/free/)
 
 This software is provided "as is" without any warranty of any kind.

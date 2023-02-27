@@ -9,7 +9,16 @@ usage: iwtools.py [-h] [--api-key API_KEY] [--api-keyfile API_KEYFILE] [-q] [-r]
 Pass your API key for a higher number of daily tests.
 
 ### --api-keyfile API_KEYFILE
-Use a file with your API keys (it’s more secure than using raw arguments). [Find out more](https://www.immuniweb.com/free/).
+Use a file with your API keys (it’s more secure than using raw arguments).
+[Find out more](https://www.immuniweb.com/free/).
+
+Sample file content:
+
+~~~
+websec ssl ABCDE-12345-FGHIJ-67890
+darkweb 12345-ABCDE-67890-FGHIJ
+mobile ABCDE-FGHIJ-12345-67890
+~~~
 
 ### -r / --recheck
 Force to refresh the test (API key required).

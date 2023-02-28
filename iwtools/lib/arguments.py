@@ -112,7 +112,7 @@ def parse_args():
 
     if args.recheck and (args.api_key is None and args.api_keyfile is None):
         error_txt = "Please pass your API key to refresh the test." + \
-                    "You can purchase an API key here: https://www.immuniweb.com/{}/api".format(args.type)
+                    " You can purchase an API key here: https://www.immuniweb.com/{}/api".format(args.type)
         argparser.error(error_txt)
 
     if args.type == 'ssl' and not re.match('^[\w-]+\.[\w-]+((\.[\w-]+)+)?:\d+$', args.target):

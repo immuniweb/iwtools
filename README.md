@@ -8,7 +8,7 @@ Simple CLI interface to leverage [ImmuniWeb® Community Edition](https://www.imm
 
 ## Prepare
 
-Create virtual enviroment and install dependencies. Python >= 3.7 required.
+Create virtual environment and install dependencies. Python >= 3.7 required.
 
 ```sh
 git clone https://github.com/ImmuniwebSA/iwtools.git

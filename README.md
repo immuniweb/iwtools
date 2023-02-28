@@ -124,7 +124,7 @@ The path to the file will need to be specified upon iwtools' launch:
 ./iwtools.py websec https://www.immuniweb.com -cfg config/websec-new.yaml
 ```
 
-Curretly only `yaml` and `json` formats are supported.
+Currently only `yaml` and `json` formats are supported.
 [List of parameters](CONFIG.md) that can be configured.
 
 The script's Exit Code can return one of these 4 status codes:

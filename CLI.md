@@ -2,7 +2,7 @@
 
 ```
 usage: iwtools.py [-h] [--api-key API_KEY] [--api-keyfile API_KEYFILE] [-q] [-r] [-p] [-i IP] [-o OUTPUT] [-f FORMAT]
-                  TEST_TYPE TEST_TARGET
+                  [-cfg CONFIG_FILE] TEST_TYPE TEST_TARGET
 ```
 
 ### --api-key API_KEY
@@ -38,6 +38,9 @@ Output format.
 - colorized_text — Colorful human-readable text.
 - raw_json — API response in JSON format.
 - pretty_json — API response in pretty-printed JSON format.
+
+### -cfg / --config-file CONFIG_FILE
+Path to the configuration file. json or yaml. Default `config/websec.yaml` and `config/ssl.yaml`.
 
 ### websec / mobile / darkweb / ssl
 This parameter specifies the test's type.

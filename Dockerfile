@@ -1,13 +1,7 @@
-FROM python:3.7-alpine
-
-RUN apk update && apk add git
-
-WORKDIR /usr/src/app
-
-RUN git clone https://github.com/ImmuniwebSA/iwtools .
-
-WORKDIR /usr/src/app/iwtools
-
+FROM python:3.11-alpine
+WORKDIR /app/
+COPY iwtools /app/
 RUN pip install -r requirements.txt
-
+RUN adduser --no-create-home --disabled-password --gecos "" --uid 1001 iwtools
+USER iwtools
 ENTRYPOINT ["./iwtools.py"]

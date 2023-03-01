@@ -1,0 +1,9 @@
+{
+  "minimal_grade": "A-",
+  "compliance_pci_dss": true,
+  "compliance_gdpr": true,
+  "max_soft_outdated": 0,
+  "max_soft_vulnerabilities": 0,
+  "max_headers_issue": 0,
+  "csp_is_set": true
+}

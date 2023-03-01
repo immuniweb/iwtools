@@ -2,19 +2,16 @@
 
 # Standard libraries
 from time import time, strftime, localtime, sleep
-from urllib.parse import urlparse
 import logging
 import asyncio
-import sys
-import re
 
 # Third-party libraries
-from termcolor import colored
 import requests
 
 # Local libraries
 from gui.loader import InfiniteLoader
 from gui.scores import scores
+from gui.termcolor import colored
 
 
 class Ssl:
@@ -28,7 +25,7 @@ class Ssl:
     """
 
     API_URL = 'https://www.immuniweb.com/ssl/api/v1'
-    USER_AGENT = 'iwtools-0.1'
+    USER_AGENT = 'iwtools-0.2'
 
     highlight_titles = [
         'Empty',
@@ -188,7 +185,10 @@ class Ssl:
         response = self.get_cache_id_or_start_test()
 
         if 'error' in response:
-            raise Exception(response['error'])
+            recomendation = ''
+            if 'recommendation' in response:
+                recomendation = ' Recommendation: ' + response['recommendation']
+            raise Exception(response['error'] + recomendation)
 
         if 'multiple_ips' in response:
             raise Exception('Passed IP was not resolved')
@@ -208,7 +208,10 @@ class Ssl:
                 raise
 
         if 'error' in response:
-            raise Exception(response['error'])
+            recomendation = ''
+            if 'recommendation' in response:
+                recomendation = ' Recommendation: ' + response['recommendation']
+            raise Exception(response['error'] + recomendation)
 
         self.test_results = response
 
@@ -371,4 +374,8 @@ class Ssl:
             logging.info(colored(f"[{highlight['title']}]", highlight['color'], attrs=['bold']) + ' ' + self.normalize_text(highlight['text']))
 
         # Full Results
-        logging.info(colored("\nCheck Details: ", attrs=['bold']) + colored(f"https://www.immuniweb.com/ssl/{test_results['server_info']['unicode_hostname']['value']}/{test_results['internals']['short_id']}/", 'blue'))
+        logging.info(colored("\nCheck Details: ", attrs=['bold']) + colored(self.get_test_link(test_results), 'blue'))
+
+    def get_test_link(self, test_results):
+        return f"https://www.immuniweb.com/ssl/{test_results['server_info']['unicode_hostname']['value']}" + \
+               f"/{test_results['internals']['short_id']}/"

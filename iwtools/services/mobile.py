@@ -2,14 +2,12 @@
 
 import asyncio
 import logging
-import re
-import sys
 from time import localtime, sleep, strftime, time
 from urllib.parse import urlparse
 
 import requests
 from gui.loader import InfiniteLoader
-from termcolor import colored
+from gui.termcolor import colored
 
 
 class Mobile:
@@ -168,7 +166,11 @@ class Mobile:
 
         error = None
         for task in response:
-            if "status" and "id" in task and task["status"] == "success":
+            if type(task) is not dict:
+                error = 'Wrong response format'
+                break
+
+            if "status" in task and "id" in task and task["status"] == "success":
                 loop = asyncio.get_event_loop()
                 response = loop.run_until_complete(self.watch(task["id"]))
                 loop.close()
@@ -311,10 +313,9 @@ class Mobile:
         )
 
         # Full Results
-        logging.info(
-            colored("\nCheck Details: ", attrs=["bold"])
-            + colored(
-                f"https://www.immuniweb.com/mobile/{test_results['data']['app_info']['app_id']}/{test_results['data']['app_info']['test_short_id']}/",
-                "blue",
-            )
-        )
+        logging.info(colored("\nCheck Details: ", attrs=["bold"]) + colored(self.get_test_link(test_results), "blue"))
+
+
+    def get_test_link(self, test_results):
+        return f"https://www.immuniweb.com/mobile/{test_results['data']['app_info']['app_id']}" + \
+            f"/{test_results['data']['app_info']['test_short_id']}/"

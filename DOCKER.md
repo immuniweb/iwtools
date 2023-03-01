@@ -1,24 +1,6 @@
 # iwtools — ImmuniWeb® Community Edition CLI
 
-<p align="center">
-  <img src="logo.png" alt="iwtools logo">
-</p>
-
 Simple CLI interface to leverage [ImmuniWeb® Community Edition](https://www.immuniweb.com/free/) free tools in CI/CD pipelines and DevOps.
-
-## Prepare
-
-Create virtual environment and install dependencies. Python >= 3.7 required.
-
-```sh
-git clone https://github.com/ImmuniwebSA/iwtools.git
-cd iwtools/iwtools
-python3 -m venv env
-source ./env/bin/activate
-pip install -r requirements.txt
-```
-
-Instead of preparing and configuring the environment yourself, you can use our [Docker Image](https://hub.docker.com/r/immuniweb/iwtools).
 
 ## Usage
 
@@ -27,7 +9,7 @@ Instead of preparing and configuring the environment yourself, you can use our [
 Check your website for GDPR and PCI DSS compliance, test CMS and CSP security, verify web server hardening and privacy:
 
 ```sh
-./iwtools.py websec https://www.immuniweb.com
+docker run immuniweb/iwtools websec https://www.immuniweb.com
 ```
 
 #### Main features:
@@ -44,19 +26,19 @@ Audit your iOS or Android apps for OWASP Mobile Top 10 and other vulnerabilities
 Local mobile app check:
 
 ```sh
-./iwtools.py mobile /home/user/myapp/build/myapp.apk
+docker run --volume /{path-to-your-app}/:/app/myapp/ immuniweb/iwtools mobile /app/myapp/myapp.apk
 ```
 
 Remote mobile app check:
 
 ```sh
-./iwtools.py mobile https://example.com/download/myapp.apk
+docker run immuniweb/iwtools mobile https://example.com/download/myapp.apk
 ```
 
 Published mobile app check:
 
 ```sh
-./iwtools.py mobile https://play.google.com/store/apps/details?id=com.app.my
+docker run immuniweb/iwtools mobile https://play.google.com/store/apps/details?id=com.app.my
 ```
 
 #### Main features:
@@ -71,7 +53,7 @@ Published mobile app check:
 Monitor and detect your Dark Web exposure, phishing and domain squatting:
 
 ```sh
-./iwtools.py darkweb https://www.immuniweb.com
+docker run immuniweb/iwtools darkweb https://www.immuniweb.com
 ```
 
 #### Main features:
@@ -88,13 +70,13 @@ Test your servers for security and compliance with PCI DSS, HIPAA & NIST:
 Web Server check:
 
 ```sh
-./iwtools.py ssl immuniweb.com
+docker run immuniweb/iwtools ssl immuniweb.com
 ```
 
 Mail Server check:
 
 ```sh
-./iwtools.py ssl immuniweb.com:25
+docker run immuniweb/iwtools ssl immuniweb.com:25
 ```
 
 #### Main features:
@@ -112,28 +94,38 @@ This can be done only when using `websec` and `ssl` services.
 The result of the comparison can be viewed in the Exit Code of the script.
 
 ```sh
-./iwtools.py websec https://www.immuniweb.com -p
-./iwtools.py ssl https://www.immuniweb.com -p
+docker run immuniweb/iwtools websec https://www.immuniweb.com -p
+docker run immuniweb/iwtools ssl https://www.immuniweb.com -p
 ```
 
-By default, iwtools uses configuration file `config/websec.yaml` for `websec` service, and `config/ssl.yaml` for `ssl`.
-You can change the values in these 2 files, or use your own configuration file.
-The path to the file will need to be specified upon iwtools' launch:
+In order to use a custom configuration file, you need to mount volume, which will contain the new file.
+If the name of the configuration file is different from the default `config/websec.yaml` or `config/ssl.yaml` ones, 
+then you need to specify the new name via the `-cfg config/{new-file-name}` parameter.
 
 ```sh
-./iwtools.py websec https://www.immuniweb.com -cfg config/websec-new.yaml
+docker run --volume /{path-to-config}/:/app/config/ immuniweb/iwtools websec https://www.immuniweb.com -p -cfg config/websec-new.yaml
 ```
 
-Currently only `yaml` and `json` formats are supported.
-[List of parameters](CONFIG.md) that can be configured.
+Curretly only `yaml` and `json` formats are supported.
+[List of parameters](https://github.com/ImmuniwebSA/iwtools/blob/main/CONFIG.md) that can be configured.
 
-The script's Exit Code can return one of these 4 status codes:
+The docker's Exit Code can return one of these 4 status codes:
 - 0 - all checks have passed successfully.
 - 1 - an error occured.
 - 2 - an error occured in the input data.
 - 3 - at least one of the checks has failed.
 
-Command line options: [documentation](https://github.com/ImmuniwebSA/iwtools/blob/main/CLI.md)  
+### API key's utilization
+
+The API key can be using upon Docker's launch via the `--api-key API_KEY` parameter,
+or by mounting volume, which will contain a file with the key.
+In this case, you will need to use `--api-keyfile API_KEYFILE` parameter.
+
+```sh
+ docker run --volume /{path-to-key-folder}/:/app/config/ immuniweb/iwtools websec https://www.immuniweb.com -p -r --api-keyfile config/api-key.txt
+```
+
+Command line options: [documentation](https://github.com/ImmuniwebSA/iwtools/blob/main/CLI.md)
 Read more: [ImmuniWeb® Community Edition](https://www.immuniweb.com/free/)
 
 This software is provided "as is" without any warranty of any kind.

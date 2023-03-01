@@ -2,30 +2,24 @@
 
 # Standard libraries
 import logging
-import pathlib
 import json
-import time
-import sys
-
-# Third-party libraries
-from termcolor import colored
-from colorama import init
-import requests
+# import traceback
 
 # Local libraries
 from lib.arguments import parse_args
 from lib.logger import init_logging
 from lib.keys import get_api_key
+from lib.exit_code import ExitCode
+from gui.termcolor import colored
 
 # Community services
 from services.ssl import Ssl
 from services.websec import Websec
 from services.mobile import Mobile
 from services.darkweb import Darkweb
-
-# Debug libraries
-from pprint import pprint
-
+from services.checker import Checker
+from services.services import Services
+from services.config import Config
 
 # Let's start
 def main():
@@ -48,7 +42,7 @@ def main():
 
 
     # Create test
-    if args.type == 'websec':
+    if args.type == Services.WEBSEC:
         test = Websec(
             target = args.target,
             ip = args.ip,
@@ -56,7 +50,7 @@ def main():
             api_key = api_key,
             quiet = args.format != 'colorized_text',
         )
-    elif args.type == 'ssl':
+    elif args.type == Services.SSL:
         test = Ssl(
             target = args.target,
             ip = args.ip,
@@ -64,29 +58,65 @@ def main():
             api_key = api_key,
             quiet = args.format != 'colorized_text',
         )
-    elif args.type == 'darkweb':
+    elif args.type == Services.DARKWEB:
         test = Darkweb(
             target = args.target,
             recheck = args.recheck,
             api_key = api_key,
             quiet = args.format != 'colorized_text',
         )
-    elif args.type == 'mobile':
+    elif args.type == Services.MOBILE:
         test = Mobile(
             target = args.target,
             recheck = args.recheck,
             api_key = api_key,
             quiet = args.format != 'colorized_text',
         )
-
+    else:
+        exit(ExitCode.COMMAND_ERROR)
 
     # Run test
     try:
         result = test.start()
     except Exception as error:
-        logging.error(colored(error, 'red'))
-        raise
+        logging.error(colored('Error in run test: ', 'red') + str(error))
+        # print(traceback.format_exc())
+        exit(ExitCode.ERROR)
 
+    if args.pipeline and args.type in [Services.WEBSEC, Services.SSL]:
+        try:
+            config_service = Config.get_config(args.type, args.config_file)
+            checker = Checker(args.type)
+            checker.check(config_service, result)
+            logs = checker.get_log()
+        except FileNotFoundError as error:
+            logging.error(colored('Error: ', 'red') + "can't load config file. " + str(error))
+            exit(ExitCode.COMMAND_ERROR)
+        except Exception as error:
+            # print(traceback.format_exc())
+            logging.error(colored('Error: ', 'red') + str(error))
+            exit(ExitCode.ERROR)
+
+        is_passed = True
+        if len(logs) == 0:
+            logging.info('No checks have been made')
+        for log in logs:
+            color = 'green' if log['passed'] else 'red'
+            passed_str = 'passed' if log['passed'] else 'failed'
+            logging.info(colored(passed_str, color) + ' ' + log['key'])
+            if 'msg' in log:
+                logging.info(log['msg'])
+            if not log['passed']:
+                is_passed = False
+
+        exit_msg = colored('FAILED', 'red')
+        exit_code = ExitCode.CHECK_FAILED
+        if is_passed:
+            exit_msg = colored('PASSED', 'green')
+            exit_code = ExitCode.SUCCESS
+        logging.info('\n' + 'Checks ' + exit_msg + '\n')
+        logging.info('Test result details: ' + test.get_test_link(result))
+        exit(exit_code)
 
     # Printing result
     if args.format == 'colorized_text':
@@ -110,7 +140,7 @@ def main():
 # Init CLI
 if __name__ == '__main__':
     # Init Colorama in Windows
-    init()
+    # init()
 
     # Let's start
     main()

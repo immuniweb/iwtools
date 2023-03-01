@@ -107,7 +107,7 @@ docker run --volume /{path-to-config}/:/app/config/ immuniweb/iwtools websec htt
 ```
 
 Curretly only `yaml` and `json` formats are supported.
-[List of parameters](https://github.com/ImmuniwebSA/iwtools/blob/main/CONFIG.md) that can be configured.
+[List of parameters](https://github.com/immuniweb/iwtools/blob/main/CONFIG.md) that can be configured.
 
 The docker's Exit Code can return one of these 4 status codes:
 - 0 - all checks have passed successfully.
@@ -125,7 +125,7 @@ In this case, you will need to use `--api-keyfile API_KEYFILE` parameter.
  docker run --volume /{path-to-key-folder}/:/app/config/ immuniweb/iwtools websec https://www.immuniweb.com -p -r --api-keyfile config/api-key.txt
 ```
 
-Command line options: [documentation](https://github.com/ImmuniwebSA/iwtools/blob/main/CLI.md)
+Command line options: [documentation](https://github.com/immuniweb/iwtools/blob/main/CLI.md)
 Read more: [ImmuniWeb® Community Edition](https://www.immuniweb.com/free/)
 
 This software is provided "as is" without any warranty of any kind.

@@ -26,7 +26,7 @@ Audit your iOS or Android apps for OWASP Mobile Top 10 and other vulnerabilities
 Local mobile app check:
 
 ```sh
-docker run immuniweb/iwtools mobile /home/user/myapp/build/myapp.apk
+docker run --volume /{path-to-your-app}/:/app/myapp/ immuniweb/iwtools mobile /app/myapp/myapp.apk
 ```
 
 Remote mobile app check:
@@ -103,7 +103,7 @@ If the name of the configuration file is different from the default `config/webs
 then you need to specify the new name via the `-cfg config/{new-file-name}` parameter.
 
 ```sh
-docker run --volume /{path-to-config}/:/usr/src/app/iwtools/config/ immuniweb/iwtools websec https://www.immuniweb.com -p -cfg config/websec-new.yaml
+docker run --volume /{path-to-config}/:/app/config/ immuniweb/iwtools websec https://www.immuniweb.com -p -cfg config/websec-new.yaml
 ```
 
 Curretly only `yaml` and `json` formats are supported.
@@ -122,7 +122,7 @@ or by mounting volume, which will contain a file with the key.
 In this case, you will need to use `--api-keyfile API_KEYFILE` parameter.
 
 ```sh
- docker run --volume /{path-to-key-folder}/:/usr/src/app/iwtools/config/ immuniweb/iwtools websec https://www.immuniweb.com -p -r --api-keyfile config/api-key.txt
+ docker run --volume /{path-to-key-folder}/:/app/config/ immuniweb/iwtools websec https://www.immuniweb.com -p -r --api-keyfile config/api-key.txt
 ```
 
 Command line options: [documentation](https://github.com/ImmuniwebSA/iwtools/blob/main/CLI.md)

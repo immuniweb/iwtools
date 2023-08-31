@@ -46,7 +46,7 @@ docker run immuniweb/iwtools mobile https://play.google.com/store/apps/details?i
 - iOS/Android Security Test
 - OWASP Mobile Top 10 Test
 - Mobile App Privacy Check
-- Static & Dynamic Mobile Scan
+- Mobile Security Scan
 
 ### Dark Web Exposure Test
 

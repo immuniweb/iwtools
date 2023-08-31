@@ -64,7 +64,7 @@ Published mobile app check:
 - iOS/Android Security Test
 - OWASP Mobile Top 10 Test
 - Mobile App Privacy Check
-- Static & Dynamic Mobile Scan
+- Mobile Security Scan
 
 ### Dark Web Exposure Test
 

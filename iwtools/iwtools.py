@@ -89,6 +89,9 @@ def main():
     except Exception as error:
         logging.error(colored('Error in run test: ', 'red') + str(error))
         # print(traceback.format_exc())
+        result = {'error': str(error)}
+        raw_api_resp(args, result)
+
         exit(ExitCode.ERROR)
 
     if args.pipeline and args.type in [Services.WEBSEC, Services.SSL, Services.EMAIL]:
@@ -130,8 +133,11 @@ def main():
     if args.format == 'colorized_text':
         test.print_report()
 
+    raw_api_resp(args, result)
 
-    # Return raw API response
+
+# Return raw API response
+def raw_api_resp(args, result):
     if args.format in ['raw_json', 'pretty_json']:
         if args.format == 'raw_json':
             result = json.dumps(result)

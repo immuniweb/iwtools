@@ -4,6 +4,7 @@ from pathlib import PosixPath, Path
 from services.services import Services
 from services.checker import CheckerWebsec
 from services.checker import CheckerSsl
+from services.checker import CheckerEmail
 # from services.checker import CheckerMobile
 
 from lib.keys import get_config
@@ -21,6 +22,9 @@ class Config:
         elif service == Services.SSL:
             config_file = Path('config/ssl.yaml')
             all_keys = CheckerSsl.ALL_KEYS
+        elif service == Services.EMAIL:
+            config_file = Path('config/email.yaml')
+            all_keys = CheckerEmail.ALL_KEYS
         # elif service == Services.MOBILE:
         #     config_file = Path('config/mobile.yaml')
         #     all_keys = CheckerMobile.ALL_KEYS

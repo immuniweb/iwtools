@@ -18,9 +18,90 @@ class Checker:
             CheckerSsl().check(config, result, self.logs)
         elif self.service == Services.MOBILE:
             CheckerMobile().check(config, result, self.logs)
+        elif self.service == Services.EMAIL:
+            CheckerEmail().check(config, result, self.logs)
 
     def get_log(self):
         return self.logs
+
+
+class CheckerEmail:
+    """
+    Check Email test results according to configurations.
+    """
+
+    """
+    Configuration file keys.
+    """
+    KEY_SERVER = 'server'
+    KEY_SSL = 'ssl'
+    KEY_DNS = 'dns'
+    KEY_BLACKLISTS = 'blacklists'
+    KEY_DARKWEB = 'darkweb'
+    KEY_PHISHING = 'phishing'
+
+    KEY_VALUE = 'value' # int
+    KEY_COLOR = 'color' # str
+
+    ALL_KEYS = [
+        KEY_SERVER + '_' + KEY_VALUE,
+        KEY_SERVER + '_' + KEY_COLOR,
+        KEY_SSL + '_' + KEY_VALUE,
+        KEY_SSL + '_' + KEY_COLOR,
+        KEY_DNS + '_' + KEY_VALUE,
+        KEY_DNS + '_' + KEY_COLOR,
+        KEY_BLACKLISTS + '_' + KEY_VALUE,
+        KEY_BLACKLISTS + '_' + KEY_COLOR,
+        KEY_DARKWEB + '_' + KEY_VALUE,
+        KEY_DARKWEB + '_' + KEY_COLOR,
+        KEY_PHISHING + '_' + KEY_VALUE,
+        KEY_PHISHING + '_' + KEY_COLOR,
+    ]
+
+
+    def check(self, config: dict, result: dict, logs: list):
+        summary = result['summary']
+
+        CHECKS = {
+            self.KEY_SERVER: 'Email Server Security',
+            self.KEY_SSL: 'Email SSL/TLS Encryption',
+            self.KEY_DNS: 'DNS Security',
+            self.KEY_BLACKLISTS: 'Email Server Blacklists',
+            self.KEY_DARKWEB: 'Compromised Credentials',
+            self.KEY_PHISHING: 'Phishing and Domain Squatting',
+        }
+
+        for key in CHECKS:
+            title = CHECKS[key]
+            self.check_email_value(config, summary, logs, key, title)
+            self.check_email_color(config, summary, logs, key, title)
+
+
+    def check_email_value(self, config: dict, summary: dict, logs: list, key_1: str, title: str):
+        key = key_1 + '_' + self.KEY_VALUE
+        if key in config:
+            server_value = summary[key_1][self.KEY_VALUE]
+            config_value = config[key]
+            passed = (config_value >= server_value)
+            log = {'key': key, 'passed': passed}
+            if not passed:
+                issues_txt = 'issues'
+                if server_value == 1:
+                    issues_txt = 'issue'
+                log['msg'] = "{}: '{}' {} found, expected no more than '{}'".format(title, server_value, issues_txt, config_value)
+            logs.append(log)
+
+
+    def check_email_color(self, config: dict, summary: dict, logs: list, key_1: str, title: str):
+        key = key_1 + '_' + self.KEY_COLOR
+        if key in config:
+            server_value = summary[key_1][self.KEY_COLOR]
+            config_value = config[key]
+            passed = (config_value == server_value)
+            log = {'key': key, 'passed': passed}
+            if not passed:
+                log['msg'] = "{}: expected '{}' insted of '{}'".format(title, config_value, server_value)
+            logs.append(log)
 
 
 class CheckerWebsec:

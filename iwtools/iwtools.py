@@ -17,6 +17,7 @@ from services.ssl import Ssl
 from services.websec import Websec
 from services.mobile import Mobile
 from services.darkweb import Darkweb
+from services.email import Email
 from services.checker import Checker
 from services.services import Services
 from services.config import Config
@@ -72,6 +73,13 @@ def main():
             api_key = api_key,
             quiet = args.format != 'colorized_text',
         )
+    elif args.type == Services.EMAIL:
+        test = Email(
+            target=args.target,
+            recheck=args.recheck,
+            api_key=api_key,
+            quiet=args.format != 'colorized_text',
+        )
     else:
         exit(ExitCode.COMMAND_ERROR)
 
@@ -83,7 +91,7 @@ def main():
         # print(traceback.format_exc())
         exit(ExitCode.ERROR)
 
-    if args.pipeline and args.type in [Services.WEBSEC, Services.SSL]:
+    if args.pipeline and args.type in [Services.WEBSEC, Services.SSL, Services.EMAIL]:
         try:
             config_service = Config.get_config(args.type, args.config_file)
             checker = Checker(args.type)

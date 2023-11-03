@@ -1,0 +1,14 @@
+{
+  "server_value": 0,
+  "server_color": "green",
+  "ssl_value": 0,
+  "ssl_color": "green",
+  "dns_value": 0,
+  "dns_color": "green",
+  "blacklists_value": 0,
+  "blacklists_color": "green",
+  "darkweb_value": 0,
+  "darkweb_color": "green",
+  "phishing_value": 0,
+  "phishing_color": "green"
+}

@@ -4,7 +4,8 @@
   <img src="logo.png" alt="iwtools logo">
 </p>
 
-Simple CLI interface to leverage [ImmuniWeb® Community Edition](https://www.immuniweb.com/free/) free tools in CI/CD pipelines and DevOps.
+Simple CLI interface to leverage [ImmuniWeb® Community Edition](https://www.immuniweb.com/free/) free tools in CI/CD
+pipelines and DevOps.
 
 ## Prepare
 
@@ -18,9 +19,27 @@ source ./env/bin/activate
 pip install -r requirements.txt
 ```
 
-Instead of preparing and configuring the environment yourself, you can use our [Docker Image](https://hub.docker.com/r/immuniweb/iwtools).
+Instead of preparing and configuring the environment yourself, you can use our
+[Docker Image](https://hub.docker.com/r/immuniweb/iwtools).
 
 ## Usage
+
+### Email Security Test
+
+Check your email server for misconfigurations or vulnerabilities:
+
+```sh
+./iwtools.py email www.immuniweb.com
+```
+
+#### Main features:
+
+- Email Server Security
+- Email Server Encryption
+- DNS Misconfigurations
+- Blacklists & Spam Reports
+- Compromised Credentials
+- Phishing Campaigns
 
 ### Website Security Test
 
@@ -64,7 +83,7 @@ Published mobile app check:
 - iOS/Android Security Test
 - OWASP Mobile Top 10 Test
 - Mobile App Privacy Check
-- Mobile Security Scan
+- Static & Dynamic Mobile Scan
 
 ### Dark Web Exposure Test
 
@@ -106,18 +125,20 @@ Mail Server check:
 
 ## Utilization in CI/CD
 
-When executing the script you can specify option `-p` or `--pipeline` parameter, which will compare the results of the 
+When executing the script you can specify option `-p` or `--pipeline` parameter, which will compare the results of the
 test with pre-determined results in a configuration file.
-This can be done only when using `websec` and `ssl` services.
+This can be done only when using `websec`, `ssl` and `email` services.
 The result of the comparison can be viewed in the Exit Code of the script.
 
 ```sh
+./iwtools.py email www.immuniweb.com -p
 ./iwtools.py websec https://www.immuniweb.com -p
 ./iwtools.py ssl https://www.immuniweb.com -p
 ```
 
-By default, iwtools uses configuration file `config/websec.yaml` for `websec` service, and `config/ssl.yaml` for `ssl`.
-You can change the values in these 2 files, or use your own configuration file.
+By default, iwtools uses configuration file `config/email.yaml` for `email` service,
+`config/websec.yaml` for `websec` service, and `config/ssl.yaml` for `ssl`.
+You can change the values in these 3 files, or use your own configuration file.
 The path to the file will need to be specified upon iwtools' launch:
 
 ```sh

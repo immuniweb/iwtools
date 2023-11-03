@@ -15,6 +15,7 @@ Use a file with your API keys (it’s more secure than using raw arguments).
 Sample file content:
 
 ~~~
+email 12345-ABCDE-67890-FGHIJ
 websec ssl ABCDE-12345-FGHIJ-67890
 darkweb 12345-ABCDE-67890-FGHIJ
 mobile ABCDE-FGHIJ-12345-67890
@@ -24,7 +25,7 @@ mobile ABCDE-FGHIJ-12345-67890
 Force to refresh the test (API key required).
 
 ### -p / --pipeline
-Compare test result with config (websec and ssl only).
+Compare test result with config (websec, email and ssl services only).
 
 ### -i / --ip IP
 Force to use a specific IP address of the test's target.
@@ -40,11 +41,12 @@ Output format.
 - pretty_json — API response in pretty-printed JSON format.
 
 ### -cfg / --config-file CONFIG_FILE
-Path to the configuration file. json or yaml. Default `config/websec.yaml` and `config/ssl.yaml`.
+Path to the configuration file. json or yaml. Default `config/email.yaml`, `config/websec.yaml` and `config/ssl.yaml`.
 
-### websec / mobile / darkweb / ssl
+### email / websec / mobile / darkweb / ssl
 This parameter specifies the test's type.
 
+email — [Email Security Test](https://www.immuniweb.com/email/)
 websec — [Website Security Test](https://www.immuniweb.com/websec/)  
 mobile — [Mobile App Security Test](https://www.immuniweb.com/mobile/)  
 darkweb — [Dark Web Exposure Test](https://www.immuniweb.com/darkweb/)  

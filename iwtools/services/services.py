@@ -3,3 +3,4 @@ class Services:
     SSL = 'ssl'
     DARKWEB = 'darkweb'
     MOBILE = 'mobile'
+    EMAIL = 'email'

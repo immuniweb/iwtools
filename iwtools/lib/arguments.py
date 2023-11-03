@@ -23,6 +23,7 @@ def parse_args():
     argparser.add_argument("type",
         help=(
             "This parameter specifies the test's type.\n"
+            "    email — Email Security Test\n"
             "    websec — Website Security Test\n"
             "    mobile — Mobile App Security Test\n"
             "    darkweb — Dark Web Exposure Test\n"
@@ -31,7 +32,7 @@ def parse_args():
         type=str,
         metavar="TEST_TYPE",
         default="ssl",
-        choices=["ssl", "websec", "darkweb", "mobile"]
+        choices=["ssl", "websec", "darkweb", "mobile", "email"]
     )
 
     api_key_group = argparser.add_mutually_exclusive_group()
@@ -63,7 +64,7 @@ def parse_args():
     )
 
     argparser.add_argument("-p", "--pipeline",
-        help="Compare test result with config (websec and ssl only).",
+        help="Compare test result with config (email, websec and ssl only).",
         action="store_true",
         default=False
     )

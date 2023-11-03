@@ -4,6 +4,23 @@ Simple CLI interface to leverage [ImmuniWeb® Community Edition](https://www.imm
 
 ## Usage
 
+### Email Security Test
+
+Check your email server for misconfigurations or vulnerabilities:
+
+```sh
+docker run immuniweb/iwtools email www.immuniweb.com
+```
+
+#### Main features:
+
+- Email Server Security
+- Email Server Encryption
+- DNS Misconfigurations
+- Blacklists & Spam Reports
+- Compromised Credentials
+- Phishing Campaigns
+
 ### Website Security Test
 
 Check your website for GDPR and PCI DSS compliance, test CMS and CSP security, verify web server hardening and privacy:
@@ -46,7 +63,7 @@ docker run immuniweb/iwtools mobile https://play.google.com/store/apps/details?i
 - iOS/Android Security Test
 - OWASP Mobile Top 10 Test
 - Mobile App Privacy Check
-- Mobile Security Scan
+- Static & Dynamic Mobile Scan
 
 ### Dark Web Exposure Test
 
@@ -88,19 +105,20 @@ docker run immuniweb/iwtools ssl immuniweb.com:25
 
 ## Utilization in CI/CD
 
-When executing the script you can specify option `-p` or `--pipeline` parameter, which will compare the results of the 
+When executing the script you can specify option `-p` or `--pipeline` parameter, which will compare the results of the
 test with pre-determined results in a configuration file.
 This can be done only when using `websec` and `ssl` services.
 The result of the comparison can be viewed in the Exit Code of the script.
 
 ```sh
+docker run immuniweb/iwtools email www.immuniweb.com -p
 docker run immuniweb/iwtools websec https://www.immuniweb.com -p
 docker run immuniweb/iwtools ssl https://www.immuniweb.com -p
 ```
 
 In order to use a custom configuration file, you need to mount volume, which will contain the new file.
-If the name of the configuration file is different from the default `config/websec.yaml` or `config/ssl.yaml` ones, 
-then you need to specify the new name via the `-cfg config/{new-file-name}` parameter.
+If the name of the configuration file is different from the default `config/email.yaml`, `config/websec.yaml` or
+`config/ssl.yaml` ones, then you need to specify the new name via the `-cfg config/{new-file-name}` parameter.
 
 ```sh
 docker run --volume /{path-to-config}/:/app/config/ immuniweb/iwtools websec https://www.immuniweb.com -p -cfg config/websec-new.yaml
@@ -117,7 +135,7 @@ The docker's Exit Code can return one of these 4 status codes:
 
 ### API key's utilization
 
-The API key can be using upon Docker's launch via the `--api-key API_KEY` parameter,
+The API key can be prepared for using upon Docker's launch via the `--api-key API_KEY` parameter,
 or by mounting volume, which will contain a file with the key.
 In this case, you will need to use `--api-keyfile API_KEYFILE` parameter.
 

@@ -90,7 +90,7 @@ Published mobile app check:
 Monitor and detect your Dark Web exposure, phishing and domain squatting:
 
 ```sh
-./iwtools.py darkweb https://www.immuniweb.com
+./iwtools.py darkweb www.immuniweb.com
 ```
 
 #### Main features:
@@ -107,7 +107,7 @@ Test your servers for security and compliance with PCI DSS, HIPAA & NIST:
 Web Server check:
 
 ```sh
-./iwtools.py ssl immuniweb.com
+./iwtools.py ssl immuniweb.com:443
 ```
 
 Mail Server check:
@@ -133,7 +133,7 @@ The result of the comparison can be viewed in the Exit Code of the script.
 ```sh
 ./iwtools.py email www.immuniweb.com -p
 ./iwtools.py websec https://www.immuniweb.com -p
-./iwtools.py ssl https://www.immuniweb.com -p
+./iwtools.py ssl www.immuniweb.com:443 -p
 ```
 
 By default, iwtools uses configuration file `config/email.yaml` for `email` service,

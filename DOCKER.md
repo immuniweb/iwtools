@@ -1,6 +1,7 @@
 # iwtools — ImmuniWeb® Community Edition CLI
 
-Simple CLI interface to leverage [ImmuniWeb® Community Edition](https://www.immuniweb.com/free/) free tools in CI/CD pipelines and DevOps.
+Simple CLI interface to leverage [ImmuniWeb® Community Edition](https://www.immuniweb.com/free/) free tools in CI/CD 
+pipelines and DevOps.
 
 ## Usage
 
@@ -70,7 +71,7 @@ docker run immuniweb/iwtools mobile https://play.google.com/store/apps/details?i
 Monitor and detect your Dark Web exposure, phishing and domain squatting:
 
 ```sh
-docker run immuniweb/iwtools darkweb https://www.immuniweb.com
+docker run immuniweb/iwtools darkweb www.immuniweb.com
 ```
 
 #### Main features:
@@ -87,7 +88,7 @@ Test your servers for security and compliance with PCI DSS, HIPAA & NIST:
 Web Server check:
 
 ```sh
-docker run immuniweb/iwtools ssl immuniweb.com
+docker run immuniweb/iwtools ssl immuniweb.com:443
 ```
 
 Mail Server check:
@@ -113,7 +114,7 @@ The result of the comparison can be viewed in the Exit Code of the script.
 ```sh
 docker run immuniweb/iwtools email www.immuniweb.com -p
 docker run immuniweb/iwtools websec https://www.immuniweb.com -p
-docker run immuniweb/iwtools ssl https://www.immuniweb.com -p
+docker run immuniweb/iwtools ssl www.immuniweb.com:443 -p
 ```
 
 In order to use a custom configuration file, you need to mount volume, which will contain the new file.

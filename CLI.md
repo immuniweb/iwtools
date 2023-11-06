@@ -1,7 +1,7 @@
 # iwtools commandline options
 
 ```
-usage: iwtools.py [-h] [--api-key API_KEY] [--api-keyfile API_KEYFILE] [-q] [-r] [-p] [-i IP] [-o OUTPUT] [-f FORMAT]
+usage: iwtools.py [-h] [--api-key API_KEY] [--api-keyfile API_KEYFILE] [-r] [-p] [-i IP] [-o OUTPUT] [-f FORMAT]
                   [-cfg CONFIG_FILE] TEST_TYPE TEST_TARGET
 ```
 
@@ -36,9 +36,9 @@ Path to the output file.
 ### -f / --format {colorized_text, pretty_json, raw_json}
 Output format.
 
-- colorized_text — Colorful human-readable text.
-- raw_json — API response in JSON format.
-- pretty_json — API response in pretty-printed JSON format.
+- `colorized_text` — Colorful human-readable text.
+- `raw_json` — API response in JSON format.
+- `pretty_json` — API response in pretty-printed JSON format.
 
 ### -cfg / --config-file CONFIG_FILE
 Path to the configuration file. json or yaml. Default `config/email.yaml`, `config/websec.yaml` and `config/ssl.yaml`.
@@ -46,11 +46,11 @@ Path to the configuration file. json or yaml. Default `config/email.yaml`, `conf
 ### email / websec / mobile / darkweb / ssl
 This parameter specifies the test's type.
 
-email — [Email Security Test](https://www.immuniweb.com/email/)
-websec — [Website Security Test](https://www.immuniweb.com/websec/)  
-mobile — [Mobile App Security Test](https://www.immuniweb.com/mobile/)  
-darkweb — [Dark Web Exposure Test](https://www.immuniweb.com/darkweb/)  
-ssl — [SSL Security Test](https://www.immuniweb.com/ssl/)
+- `email` — [Email Security Test](https://www.immuniweb.com/email/)
+- `websec` — [Website Security Test](https://www.immuniweb.com/websec/)
+- `mobile` — [Mobile App Security Test](https://www.immuniweb.com/mobile/)
+- `darkweb` — [Dark Web Exposure Test](https://www.immuniweb.com/darkweb/)
+- `ssl` — [SSL Security Test](https://www.immuniweb.com/ssl/)
 
 ### target (positional argument)
 This parameter specifies the target of the test: URL of the tested website or mobile app (in application stores).

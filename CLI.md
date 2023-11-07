@@ -25,10 +25,10 @@ mobile ABCDE-FGHIJ-12345-67890
 Force to refresh the test (API key required).
 
 ### -p / --pipeline
-Compare test result with config (websec, email and ssl services only).
+Compare test result with config (`websec`, `email` and `ssl` services only).
 
 ### -i / --ip IP
-Force to use a specific IP address of the test's target.
+Force to use a specific IP address of the test's target (`websec` and `ssl` services only).
 
 ### -o / --output OUTPUT
 Path to the output file.
@@ -36,14 +36,14 @@ Path to the output file.
 ### -f / --format {colorized_text, pretty_json, raw_json}
 Output format.
 
-- `colorized_text` — Colorful human-readable text.
+- `colorized_text` — Colorful human-readable text (default value).
 - `raw_json` — API response in JSON format.
 - `pretty_json` — API response in pretty-printed JSON format.
 
 ### -cfg / --config-file CONFIG_FILE
 Path to the configuration file. json or yaml. Default `config/email.yaml`, `config/websec.yaml` and `config/ssl.yaml`.
 
-### email / websec / mobile / darkweb / ssl
+### TEST_TYPE (positional argument)
 This parameter specifies the test's type.
 
 - `email` — [Email Security Test](https://www.immuniweb.com/email/)
@@ -52,5 +52,5 @@ This parameter specifies the test's type.
 - `darkweb` — [Dark Web Exposure Test](https://www.immuniweb.com/darkweb/)
 - `ssl` — [SSL Security Test](https://www.immuniweb.com/ssl/)
 
-### target (positional argument)
+### TEST_TARGET (positional argument)
 This parameter specifies the target of the test: URL of the tested website or mobile app (in application stores).

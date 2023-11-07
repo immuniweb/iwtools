@@ -10,7 +10,7 @@ pipelines and DevOps.
 Check your email server for misconfigurations or vulnerabilities:
 
 ```sh
-docker run immuniweb/iwtools email www.immuniweb.com
+docker run immuniweb/iwtools email immuniweb.com
 ```
 
 #### Main features:
@@ -108,11 +108,11 @@ docker run immuniweb/iwtools ssl immuniweb.com:25
 
 When executing the script you can specify option `-p` or `--pipeline` parameter, which will compare the results of the
 test with pre-determined results in a configuration file.
-This can be done only when using `websec` and `ssl` services.
+This can be done only when using `email`, `websec` and `ssl` services.
 The result of the comparison can be viewed in the Exit Code of the script.
 
 ```sh
-docker run immuniweb/iwtools email www.immuniweb.com -p
+docker run immuniweb/iwtools email immuniweb.com -p
 docker run immuniweb/iwtools websec https://www.immuniweb.com -p
 docker run immuniweb/iwtools ssl www.immuniweb.com:443 -p
 ```

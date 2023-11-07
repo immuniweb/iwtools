@@ -29,7 +29,7 @@ Instead of preparing and configuring the environment yourself, you can use our
 Check your email server for misconfigurations or vulnerabilities:
 
 ```sh
-./iwtools.py email www.immuniweb.com
+./iwtools.py email immuniweb.com
 ```
 
 #### Main features:
@@ -131,7 +131,7 @@ This can be done only when using `websec`, `ssl` and `email` services.
 The result of the comparison can be viewed in the Exit Code of the script.
 
 ```sh
-./iwtools.py email www.immuniweb.com -p
+./iwtools.py email immuniweb.com -p
 ./iwtools.py websec https://www.immuniweb.com -p
 ./iwtools.py ssl www.immuniweb.com:443 -p
 ```

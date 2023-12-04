@@ -24,6 +24,22 @@ Instead of preparing and configuring the environment yourself, you can use our
 
 ## Usage
 
+### Cloud Security Test
+
+Check your cloud security and exposure of unprotected or misconfigured cloud storage in more than 20 cloud storage 
+providers:
+
+```sh
+./iwtools.py cloud example.com
+```
+
+#### Main features:
+
+- Detect Unprotected Cloud Storage
+- Discover Shadow Cloud Accounts
+- Detect IAM Misconfigurations
+- Prevent Data Leaks and Breaches
+
 ### Email Security Test
 
 Check your email server for misconfigurations or vulnerabilities:

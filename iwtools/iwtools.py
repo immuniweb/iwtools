@@ -18,6 +18,7 @@ from services.websec import Websec
 from services.mobile import Mobile
 from services.darkweb import Darkweb
 from services.email import Email
+from services.cloud import Cloud
 from services.checker import Checker
 from services.services import Services
 from services.config import Config
@@ -49,7 +50,7 @@ def main():
             ip = args.ip,
             recheck = args.recheck,
             api_key = api_key,
-            quiet = args.format != 'colorized_text',
+            quiet = (args.format != 'colorized_text'),
         )
     elif args.type == Services.SSL:
         test = Ssl(
@@ -57,28 +58,39 @@ def main():
             ip = args.ip,
             recheck = args.recheck,
             api_key = api_key,
-            quiet = args.format != 'colorized_text',
+            quiet = (args.format != 'colorized_text'),
         )
     elif args.type == Services.DARKWEB:
         test = Darkweb(
             target = args.target,
             recheck = args.recheck,
             api_key = api_key,
-            quiet = args.format != 'colorized_text',
+            quiet = (args.format != 'colorized_text'),
         )
     elif args.type == Services.MOBILE:
         test = Mobile(
             target = args.target,
             recheck = args.recheck,
             api_key = api_key,
-            quiet = args.format != 'colorized_text',
+            quiet = (args.format != 'colorized_text'),
         )
     elif args.type == Services.EMAIL:
         test = Email(
-            target=args.target,
-            recheck=args.recheck,
-            api_key=api_key,
-            quiet=args.format != 'colorized_text',
+            target = args.target,
+            recheck = args.recheck,
+            api_key = api_key,
+            quiet = (args.format != 'colorized_text'),
+        )
+    elif args.type == Services.CLOUD:
+
+        quick = args.quick != "false"
+
+        test = Cloud(
+            target = args.target,
+            api_key = api_key,
+            recheck = args.recheck,
+            quick = quick,
+            quiet = (args.format != 'colorized_text'),
         )
     else:
         exit(ExitCode.COMMAND_ERROR)
@@ -87,7 +99,7 @@ def main():
     try:
         result = test.start()
     except Exception as error:
-        logging.error(colored('Error in run test: ', 'red') + str(error))
+        logging.error(colored("Error in run test: ", "red") + str(error))
         # print(traceback.format_exc())
         result = {'error': str(error)}
         raw_api_resp(args, result)
@@ -101,16 +113,16 @@ def main():
             checker.check(config_service, result)
             logs = checker.get_log()
         except FileNotFoundError as error:
-            logging.error(colored('Error: ', 'red') + "can't load config file. " + str(error))
+            logging.error(colored("Error: ", "red") + "can't load config file. " + str(error))
             exit(ExitCode.COMMAND_ERROR)
         except Exception as error:
             # print(traceback.format_exc())
-            logging.error(colored('Error: ', 'red') + str(error))
+            logging.error(colored("Error: ", "red") + str(error))
             exit(ExitCode.ERROR)
 
         is_passed = True
         if len(logs) == 0:
-            logging.info('No checks have been made')
+            logging.info("No checks have been made")
         for log in logs:
             color = 'green' if log['passed'] else 'red'
             passed_str = 'passed' if log['passed'] else 'failed'
@@ -120,18 +132,21 @@ def main():
             if not log['passed']:
                 is_passed = False
 
-        exit_msg = colored('FAILED', 'red')
+        exit_msg = colored("FAILED", "red")
         exit_code = ExitCode.CHECK_FAILED
         if is_passed:
-            exit_msg = colored('PASSED', 'green')
+            exit_msg = colored("PASSED", "green")
             exit_code = ExitCode.SUCCESS
-        logging.info('\n' + 'Checks ' + exit_msg + '\n')
-        logging.info('Test result details: ' + test.get_test_link(result))
+        logging.info(f"\nChecks {exit_msg}\n")
+        logging.info("Test result details: " + test.get_test_link(result))
         exit(exit_code)
 
     # Printing result
-    if args.format == 'colorized_text':
-        test.print_report()
+    if args.format == "colorized_text":
+        try:
+            test.print_report()
+        except Exception:
+            logging.info(colored("Cannot print report", "red"))
 
     raw_api_resp(args, result)
 

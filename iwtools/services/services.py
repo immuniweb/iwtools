@@ -4,3 +4,4 @@ class Services:
     DARKWEB = 'darkweb'
     MOBILE = 'mobile'
     EMAIL = 'email'
+    CLOUD = 'cloud'

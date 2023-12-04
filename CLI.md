@@ -2,7 +2,7 @@
 
 ```
 usage: iwtools.py [-h] [--api-key API_KEY] [--api-keyfile API_KEYFILE] [-r] [-p] [-i IP] [-o OUTPUT] [-f FORMAT]
-                  [-cfg CONFIG_FILE] TEST_TYPE TEST_TARGET
+                  [--quick false] [-cfg CONFIG_FILE] TEST_TYPE TEST_TARGET
 ```
 
 ### --api-key API_KEY
@@ -15,6 +15,7 @@ Use a file with your API keys (it’s more secure than using raw arguments).
 Sample file content:
 
 ~~~
+cloud ABCDE-FGHIJ-12345-67890
 email 12345-ABCDE-67890-FGHIJ
 websec ssl ABCDE-12345-FGHIJ-67890
 darkweb 12345-ABCDE-67890-FGHIJ
@@ -29,6 +30,10 @@ Compare test result with config (`websec`, `email` and `ssl` services only).
 
 ### -i / --ip IP
 Force to use a specific IP address of the test's target (`websec` and `ssl` services only).
+
+### --quick false
+This parameter is for `cloud` service only. The default value (if ommited) is `true` - with it the test checks only in 
+AWS, Azure and GCP only; in case of `false` - it performs full scan.
 
 ### -o / --output OUTPUT
 Path to the output file.
@@ -46,6 +51,7 @@ Path to the configuration file. json or yaml. Default `config/email.yaml`, `conf
 ### TEST_TYPE (positional argument)
 This parameter specifies the test's type.
 
+- `cloud` - [Cloud Security Test](https://www.immuniweb.com/cloud/)
 - `email` — [Email Security Test](https://www.immuniweb.com/email/)
 - `websec` — [Website Security Test](https://www.immuniweb.com/websec/)
 - `mobile` — [Mobile App Security Test](https://www.immuniweb.com/mobile/)

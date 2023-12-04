@@ -23,6 +23,7 @@ def parse_args():
     argparser.add_argument("type",
         help=(
             "This parameter specifies the test's type.\n"
+            "    cloud — Cloud Security Test\n"
             "    email — Email Security Test\n"
             "    websec — Website Security Test\n"
             "    mobile — Mobile App Security Test\n"
@@ -32,7 +33,7 @@ def parse_args():
         type=str,
         metavar="TEST_TYPE",
         default="ssl",
-        choices=["ssl", "websec", "darkweb", "mobile", "email"]
+        choices=["ssl", "websec", "darkweb", "mobile", "email", "cloud"]
     )
 
     api_key_group = argparser.add_mutually_exclusive_group()
@@ -69,6 +70,14 @@ def parse_args():
         default=False
     )
 
+    argparser.add_argument("--quick",
+        help="Cloud only: true to check for exposure in more clouds.",
+        metavar="true|false",
+        type=str,
+        default="true",
+        choices=["true", "false"]
+    )
+
     argparser.add_argument("-o", "--output",
         help="Path to the output file.",
         type=pathlib.Path
@@ -92,7 +101,7 @@ def parse_args():
             "Test's target.\n"
             "    URL for Web Security test\n"
             "    Hostname:Port for SSL Security test\n"
-            "    Domain for Dark Web Exposure test\n"
+            "    Domain for Dark Web Exposure test, Email Security Test and Cloud Security Test\n"
             "    File path of a locally stored mobile application\n"
             "    Page of a mobile app published in application stores\n"
             "    URL of a self-hosted mobile application\n"
@@ -121,6 +130,9 @@ def parse_args():
 
     if args.type == 'darkweb' and (is_ip(args.target) or not re.match('^[\w-]+\.[\w-]+((\.[\w-]+)+)?$', args.target)):
         argparser.error('Target format should be domain for dark web exposure test.')
+
+    if args.type == 'cloud' and (is_ip(args.target) or not re.match('^[\w-]+\.[\w-]+((\.[\w-]+)+)?$', args.target)):
+        argparser.error('Target format should be domain for cloud security test.')
 
     if args.type == 'websec' and '.' not in args.target:
         argparser.error('Target format should be URL for web security test.')

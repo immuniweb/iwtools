@@ -5,25 +5,9 @@ pipelines and DevOps.
 
 ## Usage
 
-### Cloud Security Test
-
-Check your cloud security and exposure of unprotected or misconfigured cloud storage in more than 20 cloud storage 
-providers:
-
-```sh
-docker run immuniweb/iwtools cloud example.com
-```
-
-#### Main features:
-
-- Detect Unprotected Cloud Storage
-- Discover Shadow Cloud Accounts
-- Detect IAM Misconfigurations
-- Prevent Data Leaks and Breaches
-
 ### Email Security Test
 
-Check your email server for misconfigurations or vulnerabilities:
+Test your email server security, encryption, configurations and privacy:
 
 ```sh
 docker run immuniweb/iwtools email immuniweb.com
@@ -31,16 +15,16 @@ docker run immuniweb/iwtools email immuniweb.com
 
 #### Main features:
 
-- Email Server Security
-- Email Server Encryption
-- DNS Misconfigurations
-- Blacklists & Spam Reports
-- Compromised Credentials
-- Phishing Campaigns
+- Email Server Security Test
+- Email Server Encryption Test
+- DNS Misconfigurations Test
+- Phishing Campaigns Detection
+- Compromised Credentials Detection
+- Black & Spam Lists Presence Detection
 
 ### Website Security Test
 
-Check your website for GDPR and PCI DSS compliance, test CMS and CSP security, verify web server hardening and privacy:
+Test your website security vulnerabilities, privacy issues, GDPR and PCI DSS compliance:
 
 ```sh
 docker run immuniweb/iwtools websec https://www.immuniweb.com
@@ -48,14 +32,16 @@ docker run immuniweb/iwtools websec https://www.immuniweb.com
 
 #### Main features:
 
-- GDPR & PCI DSS Test
-- Website CMS Security Test
-- CSP & HTTP Headers Check
+- Web Software Detection
+- Website Vulnerability Scan
 - WordPress & Drupal Scanning
+- Website Privacy Check
+- HTTP Headers & CSP Test
+- AI Bot Protection Test
 
 ### Mobile App Security Test
 
-Audit your iOS or Android apps for OWASP Mobile Top 10 and other vulnerabilities:
+Test your iOS or Android mobile apps for OWASP Mobile Top 10 and other vulnerabilities:
 
 Local mobile app check:
 
@@ -77,14 +63,16 @@ docker run immuniweb/iwtools mobile https://play.google.com/store/apps/details?i
 
 #### Main features:
 
-- iOS/Android Security Test
-- OWASP Mobile Top 10 Test
-- Mobile App Privacy Check
-- Mobile Security Scan
+- iOS App Security Test
+- Android App Security Test
+- OWASP Mobile Top 10 Scan
+- Mobile Security Test
+- Mobile App Privacy Test
+- Software Composition Analysis
 
-### Dark Web Exposure Test
+### Dark Web and Threat Exposure Test
 
-Monitor and detect your Dark Web exposure, phishing and domain squatting:
+Discover your data leaks on the Dark Web and get your cyber threat exposure report:
 
 ```sh
 docker run immuniweb/iwtools darkweb www.immuniweb.com
@@ -93,13 +81,15 @@ docker run immuniweb/iwtools darkweb www.immuniweb.com
 #### Main features:
 
 - Dark Web Exposure Monitoring
-- Phishing Detection and Monitoring
-- Domain Squatting Monitoring
+- Phishing & Scam Websites Detection
+- Cloud Exposure & Incidents Monitoring
 - Trademark Infringement Monitoring
+- Cyber & Typo Squatting Domains Detection
+- Fake Accounts in Social Networks Detection
 
 ### SSL Security Test
 
-Test your servers for security and compliance with PCI DSS, HIPAA & NIST:
+Test SSL/TLS of your web or email servers for security, PCI DSS, HIPAA & NIST compliance:
 
 Web Server check:
 
@@ -115,10 +105,12 @@ docker run immuniweb/iwtools ssl immuniweb.com:25
 
 #### Main features:
 
-- Web Server SSL Test
-- Email Server SSL Test
-- SSL Certificate Test
-- PCI DSS, HIPAA & NIST Test
+- Web Server SSL/TLS Security
+- Email Server SSL/TLS Security
+- SSL Certificate Test Validity
+- Post-Quantum Cryptography (PQC) Readiness
+- PCI DSS, HIPAA & NIST Compliance
+- Best-Practices Compliance
 
 ## Utilization in CI/CD
 
